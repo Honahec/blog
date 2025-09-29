@@ -39,7 +39,7 @@ nvm install 24
 node -v # Should print "v24.9.0".
 ```
 
-在安装好 `node` 后，便可以使用 `npm` 了
+在安装好 node 后，便可以使用 npm 了
 
 若使用国内服务器，推荐使用淘宝镜像源
 
@@ -74,9 +74,9 @@ pnpm build # 构建项目
 
 ## 更细节的事情
 
-pnpm 从命令行、环境变量和 `.npmrc` 文件中获取其配置。
+pnpm 从命令行、环境变量和 .npmrc 文件中获取其配置。
 
-`pnpm config` 命令可用于更新和编辑 用户和全局 `.npmrc` 文件的内容。
+`pnpm config` 命令可用于更新和编辑 用户和全局 .npmrc 文件的内容。
 
 四个相关文件分别为：
 

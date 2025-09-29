@@ -6,7 +6,7 @@
 
 > *Git* is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 
-另外，你大可以使用比如 `vscode` 中极为方便的插件，比如自带的仓库管理器和 `GitLen` 插件，但我仍认为应掌握 Git 的基本用法 ~~（也许还有一些进阶用法）~~
+另外，你大可以使用比如 vscode 中极为方便的插件，比如自带的仓库管理器和 GitLen 插件，但我仍认为应掌握 Git 的基本用法 ~~（也许还有一些进阶用法）~~
 
 ## 安装 git
 
@@ -21,7 +21,7 @@ git --version
 
 ## git 换源（可选）
 
-请注意，示例提供的方法无法使用`git push`,**只建议在云服务器上使用**
+请注意，示例提供的方法无法使用`git push`，**只在云服务器上使用**
 
 **本地建议开启虚拟网卡**
 
@@ -115,7 +115,7 @@ git init
 
 ### 为本地仓库添加文件
 
-首先，我们一般会忽略本地的一些文件例如`node_modules`
+首先，我们一般会忽略本地的一些文件例如 node_modules
 
 在项目根目录下创建`.gitignore`文件，并添加以下内容
 
@@ -123,9 +123,9 @@ git init
 node_modules/
 ```
 
-这会告诉 git 忽略 `node_modules` 文件夹中的所有文件。
+这会告诉 git 忽略 node_modules 文件夹中的所有文件。
 
-同理还有`.vscode`里的大部分等等
+同理还有 .vscode 里的大部分等等
 
 可以使用`!`来排除某些文件被忽略，例如：
 
@@ -134,7 +134,7 @@ node_modules/
 !.vscode/extensions.json
 ```
 
-这意味着，git 会忽略`.vscode`文件夹中除了`extensions.json`之外的所有文件。
+这意味着，git 会忽略 .vscode 文件夹中 **除了** extensions.json 之外的所有文件。
 
 将你要上传的文件添加到 git 暂存区：
 
@@ -154,7 +154,7 @@ git add .
 git commit -m "Your commit"
 ```
 
-**尽可能规范你所有 `commit` 的格式，有助于版本管理和合作**
+**尽可能规范你所有 commit 的格式，有助于版本管理和合作**
 
 ### 关联远程仓库
 
@@ -200,7 +200,7 @@ git rm -r -n --cached 文件/文件夹名称
 git rm -r --cached 文件/文件夹名称
 ```
 
-之后正常`commit && push`即可
+之后正常 commit && push 即可
 
 ## 更新本地仓库
 
@@ -224,7 +224,7 @@ git pull
 
 ### 修改commit
 
-假设你更新了某个功能，但是忘记更新 `README.md` 了，又不想二次 `commit` 污染你的版本管理
+假设你更新了某个功能，但是忘记更新 README.md 了，又不想二次 commit 污染你的版本管理
 
 ```bash
 git add xxx
@@ -235,15 +235,15 @@ git commit --amend -m "xxx"
 
 <img src="https://image.honahec.cc/commit%20amend.png" style="zoom:150%;" />
 
-而后，若你本次修改与它的并行修改无冲突，直接同步即可，若存在冲突则需要简单 `merge` 一下（如果不简单就没必要这样了对吗）
+而后，若你本次修改与它的并行修改无冲突，直接同步即可，若存在冲突则需要简单 merge 一下（如果不简单就没必要这样了对吗）
 
-**另外，你还可以 `git commit --amend --no-edit` 创建一个与它并行修改相同 `commit` 的提交**
+**另外，你还可以 `git commit --amend --no-edit` 创建一个与它并行修改相同 commit 的提交**
 
 ### 关于merge
 
-在你 `push` 或者 `pull` 时，存在本地仓库与远程仓库的冲突，则需要选择保留哪些，在 `vscode` 中提供了可视化的选择方案，极为方便
+在你 push 或者 pull 时，存在本地仓库与远程仓库的冲突，则需要选择保留哪些，在 vscode 中提供了可视化的选择方案，极为方便
 
-处理所有冲突后进行同步，会创建一个 `commit` 形如 `Merge branch 'xxx' of github.com:xxx/xxx`
+处理所有冲突后进行同步，会创建一个 commit 形如 `Merge branch 'xxx' of github.com:xxx/xxx`
 
 ## 一些偏门知识
 

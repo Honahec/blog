@@ -11,24 +11,24 @@ sudo apt install nginx
 
 ## 配置 Nginx
 
-Nginx 的配置文件一般位于`/etc/nginx/`
+Nginx 的配置文件一般位于 /etc/nginx/
 
-其中`nginx.conf`是主配置文件（不管它）
+其中 nginx.conf 是主配置文件（不管它）
 
-首先在`sites-available`中创建一个文件配置你的虚拟主机
+首先在 sites-available 中创建一个文件配置你的虚拟主机
 
 ```bash
 sudo vi /etc/nginx/sites-available/site.yourdomain.com
 ```
 
-以下给出两个`sites-available`的示例：
+以下给出两个 sites-available 的示例：
 
 ### 直接转发某个前端项目（以 vue 为例）
 
-> vue 项目打包后会生成一个`dist`文件夹，里面包含打包后的文件
+> vue 项目打包后会生成一个 dist 文件夹，里面包含打包后的文件
 >
 
-所以我们只需要配置 nginx 将`root`指向`dist`文件夹，然后`index`指向`index.html`即可
+所以我们只需要配置 nginx 将 root 指向 dist 文件夹，然后 index 指向 index.html 即可
 
 ```nginx
 server {
@@ -105,9 +105,9 @@ server {
 
 只需要修改 `proxy_pass` 和 `server_name` 即可
 
-值得注意的是，如果你在同一域名下搭建了静态页面及api，你可以用 `nginx` 来配置处理不同的请求
+### 处理不同请求
 
-例如：
+值得注意的是，如果你在同一域名下搭建了例如静态页面及api，你可以用 nginx 来配置处理不同的请求
 
 ```nginx
 location ~ ^/(api|login) {
@@ -121,7 +121,7 @@ location / {
 }
 ```
 
-这段代码代表着 `yourdomain.com/api` 和 `yourdomain.com/login` 的请求会走上面的代理，而其它请求会走下方的静态页面
+这段代码代表着 yourdomain.com/api 和 yourdomain.com/login 的请求会走上面的代理，而其它请求会走下方的静态页面
 
 相信你可以注意到以下两个结论：
 
@@ -138,7 +138,7 @@ sudo ln -s /etc/nginx/sites-available/site.yourdomain.com /etc/nginx/sites-enabl
 
 这个命令是创建了一个软连接
 
-意味着 nginx 会启用`site.yourdomain.com`这个配置文件
+意味着 nginx 会启用 site.yourdomain.com 这个配置文件
 
 ## 测试配置
 
