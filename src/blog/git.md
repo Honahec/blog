@@ -247,5 +247,5 @@ git commit --amend -m "xxx"
 
 ## 一些偏门知识
 
-#### [Git对象](./Git对象.md)
+#### [Git对象](./GitObject.md)
 

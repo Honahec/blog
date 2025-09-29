@@ -12,10 +12,10 @@ Git 有 **四种对象类型**：
 
 | **类型**   | **作用**                              | **内容结构**                                   | **典型命令**                 |
 | ---------- | ------------------------------------- | ---------------------------------------------- | ---------------------------- |
-| **blob**   | 存储文件内容                          | 文件原始内容                                   | git cat-file -p <sha>        |
-| **tree**   | 表示目录（含文件名、权限、blob 引用） | 目录项列表                                     | git cat-file -p <tree-sha>   |
-| **commit** | 表示一次提交                          | 指向一个 tree + 元数据（作者、时间、父提交等） | git cat-file -p <commit-sha> |
-| **tag**    | 可读标签对象，指向其他对象            | 指向 commit/blob/tree/tag，含签名信息          | git cat-file -p <tag-sha>    |
+| **blob**   | 存储文件内容                          | 文件原始内容                                   | `git cat-file -p <sha>`        |
+| **tree**   | 表示目录（含文件名、权限、blob 引用） | 目录项列表                                     | `git cat-file -p <tree-sha>`   |
+| **commit** | 表示一次提交                          | 指向一个 tree + 元数据（作者、时间、父提交等） | `git cat-file -p <commit-sha>` |
+| **tag**    | 可读标签对象，指向其他对象            | 指向 commit/blob/tree/tag，含签名信息          | `git cat-file -p <tag-sha>`    |
 
 ### Git 对象的存储形式
 
@@ -53,12 +53,12 @@ Git 通过对象间引用构建出 **有向无环图 (DAG)**：
 
 | **命令**                                  | **功能**                                         |
 | ----------------------------------------- | ------------------------------------------------ |
-| git hash-object <file>                    | 计算文件内容对应的对象哈希                       |
-| git cat-file -p <sha>                     | 解压并显示对象内容                               |
-| git cat-file -t <sha>                     | 显示对象类型                                     |
-| git rev-list --all --objects              | 列出所有对象及其文件路径                         |
-| git fsck --full --no-reflogs --lost-found | 扫描丢失的对象（dangling）并放入 .git/lost-found |
-| git show <sha>                            | 智能展示对象内容（根据类型）                     |
+| `git hash-object <file>`                    | 计算文件内容对应的对象哈希                       |
+| `git cat-file -p <sha>`                     | 解压并显示对象内容                               |
+| `git cat-file -t <sha>`                     | 显示对象类型                                     |
+| `git rev-list --all --objects`              | 列出所有对象及其文件路径                         |
+| `git fsck --full --no-reflogs --lost-found` | 扫描丢失的对象（dangling）并放入 .git/lost-found |
+| `git show <sha>`                            | 智能展示对象内容（根据类型）                     |
 
 ### Dangling / Lost Object（孤儿对象）
 
@@ -69,7 +69,7 @@ Git 通过对象间引用构建出 **有向无环图 (DAG)**：
 
 恢复流程：
 
-```
+```bash
 git fsck --full --no-reflogs --lost-found
 ls .git/lost-found/other
 git cat-file -p <sha>
@@ -86,11 +86,11 @@ git cat-file -p <sha>
 
 查看其中对象：
 
-```
+```bash
 git verify-pack -v .git/objects/pack/pack-xxxx.pack
 ```
 
-或用 git cat-file -p <sha>（Git 会自动从 pack 中解压）。
+或用 `git cat-file -p <sha>`（Git 会自动从 pack 中解压）。
 
 ### 一些特殊对象
 
@@ -127,4 +127,3 @@ git verify-pack -v .git/objects/pack/pack-xxxx.pack
 | (file content...)   |  
 +---------------------+
 ```
-
