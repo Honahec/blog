@@ -13,7 +13,8 @@ export const sidebar = {
         {
           text: "项目管理",
           items: [
-            { text: "git", link: "/blog/git.md" },
+            { text: "Git", link: "/blog/git.md" },
+            { text: "Git对象", link: "/blog/GitObject.md" },
             { text: "pnpm", link: "/blog/pnpm.md" },
           ],
         },

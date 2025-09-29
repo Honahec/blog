@@ -1,10 +1,12 @@
-# git 教程
+# Git 教程
 
 ## 一些声明
 
-身为一个现代人，强烈建议你使用如 vscode 自带的 git 管理工具
+你理应对 Git 有基本的了解
 
-当然你理应对 git 有基本的了解
+> *Git* is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
+
+另外，你大可以使用比如 `vscode` 中极为方便的插件，比如自带的仓库管理器和 `GitLen` 插件，但我仍认为应掌握 Git 的基本用法~~（也许还有一些进阶用法）~~
 
 ## 安装 git
 
@@ -21,15 +23,17 @@ git --version
 
 请注意，示例提供的方法无法使用`git push`,**只建议在云服务器上使用**
 
+**本地建议开启虚拟网卡**
+
 国内使用 git 时常发生抽风的现象
 
-全局更改镜像网站下载可大大方便后续操作
+可全局更改使用镜像网站下载
 
 ```bash
 git config --global url."https://ghproxy.cc/https://github.com/".insteadOf "https://github.com/"
 ```
 
-使用全局参数更改后 使用 `vi ~/.gitconfig` 命令即可查看当前的配置文件，看到以下配置：
+使用 `vi ~/.gitconfig` 命令即可查看当前的配置文件，看到以下配置：
 
 ```bash
 [url "https://ghproxy.cc/https://github.com/"]
@@ -49,24 +53,6 @@ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 ```
 
 按照提示操作，通常直接按回车即可使用默认路径和文件名
-
-### 启动 SSH 代理
-
-如果你用的是 linux 或 macOS，可在终端执行以下命令：
-
-```bash
-eval "$(ssh-agent -s)"
-```
-
-**理论上这不是必须的**
-
-### 添加 SSH 密钥到 SSH 代理
-
-运行以下命令，将生成的 SSH 密钥添加到代理中：
-
-```bash
-ssh-add ~/.ssh/id_rsa
-```
 
 ### 将公钥添加到 GitHub
 
@@ -103,13 +89,11 @@ Host github.com
 
 ## 将本地文件上传到 GitHub
 
-git 的原理是，你的本地拥有一个本地仓库，GitHub 上的仓库称为远程仓库
+git 的原理是，你同时拥有一个本地仓库和一个远程仓库
 
 请注意：**本地仓库不等于本地文件夹**
 
-我们之后的操作，都基于 修改本地仓库 -> 将本地仓库上传到远程仓库 以完成同步
-
-你在**本地文件夹**创建的文件、删除的文件，都需要上传至**本地仓库**才能完成同步，单单修改文件夹是没有用的
+对于最简单的情况，git 可以帮你同步这两个仓库
 
 ### 创建一个 GitHub 仓库
 
@@ -167,10 +151,10 @@ git add .
 提交你添加的文件：
 
 ```bash
-git commit -m "1.0.0"
+git commit -m "Your commit"
 ```
 
-此处`1.0.0`将会是你在 GitHub 上看到的版本备注
+**尽可能规范你所有 `commit` 的格式，有助于版本管理和合作**
 
 ### 关联远程仓库
 
@@ -190,13 +174,11 @@ git remote remove origin
 
 ### 将本地仓库推送到 GitHub
 
-请注意你的 GitHub 仓库用的 branch 是**main**还是**master**
-
 ```bash
 git push -u origin main
 ```
 
-如果使用的是 `master` 分支，命令为 `git push -u origin master`
+其中 `main` 为你的分支名
 
 完成后，你的文件就会出现在 GitHub 的仓库中。
 
@@ -220,23 +202,6 @@ git rm -r --cached 文件/文件夹名称
 
 之后正常`commit && push`即可
 
-### 直接删除本地仓库和远程仓库所有文件以及提交记录
-
-请注意：非常不建议执行此操作，除非你已经想好了
-
-```bash
-git checkout --orphan temp
-git add .
-git commit -m "reforged"
-git branch -D main
-git branch -m main
-git push -f origin main
-```
-
-执行逻辑是：创建一个临时分支->添加所有文件到这个分支->删除`main`分支->更改临时分支为`main`->强制推送到远程仓库
-
-注意：有些仓库有 main 分支保护，不允许强制 push，需要在远程仓库项目里暂时把项目保护关掉才能推送。
-
 ## 更新本地仓库
 
 ### 在云服务器上拉取 GitHub 仓库
@@ -245,7 +210,7 @@ git push -f origin main
 git clone https://github.com/用户名/仓库名.git
 ```
 
-![链接来源](https://image.honahec.cc/git-clone.png)
+<img src="https://image.honahec.cc/git-clone.png" alt="链接来源" style="zoom:50%;" />
 
 > 一般建议使用 SSH 连接（需要配置 SSH 密钥）
 
@@ -254,3 +219,33 @@ git clone https://github.com/用户名/仓库名.git
 ```bash
 git pull
 ```
+
+## 一些实用功能
+
+### 修改commit
+
+假设你更新了某个功能，但是忘记更新 `README.md` 了，又不想二次 `commit` 污染你的版本管理
+
+```bash
+git add xxx
+git commit --amend -m "xxx"
+```
+
+此时，git 会自动为你创建一个分支提交形如
+
+<img src="https://image.honahec.cc/commit%20amend.png" style="zoom:150%;" />
+
+而后，若你本次修改与它的并行修改无冲突，直接同步即可，若存在冲突则需要简单 `merge` 一下（如果不简单就没必要这样了对吗）
+
+**另外，你还可以 `git commit --amend --no-edit` 创建一个与它并行修改相同 `commit` 的提交**
+
+### 关于merge
+
+在你 `push` 或者 `pull` 时，存在本地仓库与远程仓库的冲突，则需要选择保留哪些，在 `vscode` 中提供了可视化的选择方案，极为方便
+
+处理所有冲突后进行同步，会创建一个 `commit` 形如 `Merge branch 'xxx' of github.com:xxx/xxx`
+
+## 一些偏门知识
+
+#### [Git对象](./Git对象.md)
+
