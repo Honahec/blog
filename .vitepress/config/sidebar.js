@@ -22,16 +22,6 @@ export const sidebar = {
           text: "前端",
           items: [
             { text: "Nginx", link: "/blog/nginx.md" },
-            { text: "SSL证书", link: "/blog/ssl.md" },
-          ],
-        },
-        {
-          text: "后端",
-          items: [
-            {
-              text: "Django REST Framework",
-              link: "/blog/djangorestframework.md",
-            },
           ],
         },
       ],

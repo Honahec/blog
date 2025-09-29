@@ -1,14 +1,14 @@
 # pnpm 教程
 
-## pnpm 与 npm、yarn 的比较
+## 与 npm、yarn 的比较
 
 pnpm 是一款磁盘空间高效的软件包管理器。
 
-当使用 npm 或 yarn 时，如果你有 1000 个项目，并且所有项目都有一个相同的依赖包，那么， 你在硬盘上就需要保存 100 份该相同依赖包的副本。然而，如果是使用 pnpm，依赖包将被存放在一个统一的位置，因此以项目和依赖包的比例来看，使用 pnpm 将节省大量的硬盘空间，并且安装速度也能大大提高。
+> Fast, disk space efficient package manager
 
-pnpm 的兼容性不如 npm，但是不影响 pnpm 的优越性
+当使用 npm 或 yarn 时，如果你有 1000 个项目，并且所有项目都有一个相同的依赖包，那么， 你在硬盘上就需要保存 1000 份该相同依赖包的副本。
 
-使用时，pnpm 会生成 **pnpm-lock.yaml** 文件，npm 会生成 **package-lock.json** 文件，yarn 会生成 **yarn.lock** 文件。
+然而，如果是使用 pnpm，依赖包将被存放在一个统一的位置，因此以项目和依赖包的比例来看，使用 pnpm 将节省大量的硬盘空间，并且安装速度也能大大提高。
 
 ## pnpm 的优势
 
@@ -22,45 +22,26 @@ pnpm 的兼容性不如 npm，但是不影响 pnpm 的优越性
 
 ## 安装
 
-首先你需要安装 nodejs（虽然 pnpm 可以作为独立可执行文件提供，无需安装 nodejs 也可以使用，但 emm 还是安吧）
+首先你需要安装 nodejs
 
 由于 apt 源的 nodejs 版本较低，推荐使用 nvm 进行安装和管理
 
-### 下载 nvm
+> 以下为20250929版本，需根据 [nodejs官网](https://nodejs.org/en/download/current) 查看最新
 
 ```bash
-wget https://github.com/nvm-sh/nvm/archive/refs/tags/v0.39.1.tar.gz
-mkdir -p ~/.nvm
-tar -zxvf nvm-0.39.1.tar.gz -C ~/.nvm
+# Download and install nvm:
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.3/install.sh | bash
+# in lieu of restarting the shell
+\. "$HOME/.nvm/nvm.sh"
+# Download and install Node.js:
+nvm install 24
+# Verify the Node.js version:
+node -v # Should print "v24.9.0".
 ```
 
-### 配置 nvm
+在安装好 `node` 后，便可以使用 `npm` 了
 
-在`~/.bashrc`中添加以下内容
-
-```bash
-export NVM_DIR="$HOME/.nvm/nvm-0.39.1"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-```
-
-之后`source ~/.bashrc`使配置生效
-
-### 下载 nodejs
-
-可通过`nvm list available`查看可下载的 nodejs 版本
-
-通过`nvm install <version>`安装指定版本
-
-通过`nvm use <version>`切换使用的 nodejs 版本
-
-当然，你也可以使用`nvm install --lts`安装最新版本的 nodejs
-
-随后使用`node -v`检查 nodejs 已安装成功
-
-### 下载 pnpm
-
-对 npm 进行换源
+若使用国内服务器，推荐使用淘宝镜像源
 
 ```bash
 npm config set registry https://registry.npmmirror.com
@@ -69,12 +50,13 @@ npm config set registry https://registry.npmmirror.com
 安装 pnpm
 
 ```bash
-npm install -g pnpm
+# Download and install pnpm:
+corepack enable pnpm
+# Verify pnpm version:
+pnpm -v
 ```
 
 pnpm 无需再次换源，默认使用 npm 的源
-
-使用`pnpm -v`检查 pnpm 已安装成功
 
 ## 常用命令
 
@@ -98,7 +80,7 @@ pnpm 从命令行、环境变量和 `.npmrc` 文件中获取其配置。
 
 四个相关文件分别为：
 
-- 每个项目的配置文件（`/path/to/my/project/.npmrc`）
+- 每个项目的配置文件（`/path/to/your/project/.npmrc`）
 
 - 每个工作区的配置文件（包含 `pnpm-workspace.yaml` 文件的目录）
 
@@ -107,3 +89,6 @@ pnpm 从命令行、环境变量和 `.npmrc` 文件中获取其配置。
 - 全局配置文件（`/etc/npmrc`）
 
 所有 .npmrc 文件都遵循 INI-formatted 列表，包含 key = value 参数。
+
+
+

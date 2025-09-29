@@ -4,7 +4,7 @@
 
 Git 的核心是一个 **内容寻址文件系统**（Content-Addressable Filesystem）：
 
-- 一切数据都以**对象（Object）**存储；
+- 一切数据都以 **对象（Object）** 存储；
 - 每个对象都通过其内容的 **SHA-1 哈希**（40 个十六进制字符）来唯一标识；
 - 所有对象都放在 .git/objects/ 目录（或打包为 .pack 文件）。
 

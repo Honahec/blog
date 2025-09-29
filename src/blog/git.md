@@ -6,7 +6,7 @@
 
 > *Git* is a free and open source distributed version control system designed to handle everything from small to very large projects with speed and efficiency.
 
-另外，你大可以使用比如 `vscode` 中极为方便的插件，比如自带的仓库管理器和 `GitLen` 插件，但我仍认为应掌握 Git 的基本用法~~（也许还有一些进阶用法）~~
+另外，你大可以使用比如 `vscode` 中极为方便的插件，比如自带的仓库管理器和 `GitLen` 插件，但我仍认为应掌握 Git 的基本用法 ~~（也许还有一些进阶用法）~~
 
 ## 安装 git
 
