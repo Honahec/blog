@@ -24,6 +24,12 @@ export const sidebar = {
             { text: "Nginx", link: "/blog/nginx.md" },
           ],
         },
+        {
+          text: "Debug 经历",
+          items: [
+            { text: "API 返回值", link: "/blog/APIReturn.md" },
+          ],
+        }
       ],
     },
   ],

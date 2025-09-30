@@ -1,10 +1,8 @@
 # 关于我
 
 > 你好，我是 Honahec
->
-> 这是我的前端入门项目，想通过一步步完善个人博客的方式学习前端
 
-现在是 **2024-11-3** 的凌晨，我刚刚将[该 blog 项目](https://github.com/Honahec/blog)的 beta1 版本上传到 github，并在阿里云服务器上部署完成，写下了这个 about.md
+现在是 **2024-11-3** 的凌晨，我刚刚将[该 blog 项目](https://github.com/Honahec/blog)上传到 github，并在阿里云服务器上部署完成，写下了这个 about.md
 
 ## 个人介绍
 
