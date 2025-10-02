@@ -12,7 +12,7 @@ import "./style.css";
 import GiscusComment from "./components/GiscusComment.vue";
 import RandomTagline from "./components/RandomTagline.vue";
 import FeaturedPosts from "./components/FeaturedPosts.vue";
-import TodoItem from "./components/FinishedTodo.vue";
+import EducationTimeline from "./components/EducationTimeline.vue";
 import { initImageViewer } from "./utils/viewer";
 
 /** @type {import('vitepress').Theme} */
@@ -59,6 +59,6 @@ export default {
   },
   enhanceApp({ app }) {
     app.component("Icon", Icon);
-    app.component("FinishedTodo", TodoItem);
+    app.component("EducationTimeline", EducationTimeline);
   },
 };

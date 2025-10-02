@@ -164,12 +164,3 @@
   font-size: 8em;
   z-index: -1;
 }
-
-.todo-item {
-  display: inline-flex;
-  align-items: center;
-}
-
-.todo-item .icon {
-  color: var(--vp-c-brand-1);
-}
