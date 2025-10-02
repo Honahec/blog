@@ -15,7 +15,7 @@ export default defineConfig({
     footer,
     
     socialLinks: [
-      { icon: "github", link: "https://github.com/Honahec/blog" }
+      { icon: "github", link: "https://github.com/Honahec" }
     ],
 
     docFooter: {

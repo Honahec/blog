@@ -25,6 +25,12 @@ export const sidebar = {
           ],
         },
         {
+          text: "后端",
+          items: [
+            { text: "JWT", link: "/blog/JWT.md" },
+          ],
+        },
+        {
           text: "Debug 经历",
           items: [
             { text: "API 返回值", link: "/blog/APIReturn.md" },
