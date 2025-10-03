@@ -35,7 +35,13 @@ export const sidebar = {
           items: [
             { text: "API 返回值", link: "/blog/APIReturn.md" },
           ],
-        }
+        },
+        ...(new Date() >= new Date('2025-10-04') ? [{
+          text: "CTF",
+          items: [
+            { text: "GeekPie招新赛", link: "/blog/GeekPie2025.md" },
+          ]
+        }] : [])
       ],
     },
   ],
@@ -48,13 +54,6 @@ export const sidebar = {
     {
       text: "友链申请",
       link: "/friends/apply.md",
-    },
-  ],
-
-  "/todo/": [
-    {
-      text: "TODO",
-      link: "/todo/",
     },
   ],
 };
