@@ -25,10 +25,6 @@ export default defineUserConfig({
       extendsPage(page) {
         const frontmatter = page.frontmatter ?? {};
 
-        if ("commentMapping" in frontmatter) {
-          delete (frontmatter as Record<string, unknown>).commentMapping;
-        }
-
         const giscus = frontmatter.giscus;
         if (giscus === undefined) {
           return;
@@ -36,41 +32,21 @@ export default defineUserConfig({
 
         if (giscus === false) {
           frontmatter.comment = false;
+          delete frontmatter.commentID;
+          delete (frontmatter as Record<string, unknown>).commentMapping;
           return;
         }
 
-        const setMapping = (mapping: unknown) => {
-          if (typeof mapping === "string" && mapping.trim()) {
-            (frontmatter as Record<string, unknown>).commentMapping = mapping;
-          }
-        };
-
-        const setIdentifier = (value: unknown) => {
-          if (
-            value !== undefined &&
-            value !== null &&
-            frontmatter.commentID == null
-          ) {
-            frontmatter.commentID = String(value);
-          }
-        };
-
-        if (typeof giscus === "string" || typeof giscus === "number") {
-          setIdentifier(giscus);
-          setMapping("number");
-          return;
-        }
-
-        if (typeof giscus === "object") {
-          const options = giscus as Record<string, unknown>;
-          setMapping(options.mapping);
-          setIdentifier(options.commentID ?? options.id ?? options.number);
-
-          if (typeof options.comment === "boolean") {
-            frontmatter.comment = options.comment;
-          } else if (typeof options.enabled === "boolean") {
-            frontmatter.comment = options.enabled;
-          }
+        if (
+          (typeof giscus === "number" && Number.isFinite(giscus)) ||
+          (typeof giscus === "string" && giscus.trim() !== "")
+        ) {
+          frontmatter.comment = true;
+          frontmatter.commentID = String(giscus);
+          (frontmatter as Record<string, unknown>).commentMapping = "number";
+        } else {
+          delete frontmatter.commentID;
+          delete (frontmatter as Record<string, unknown>).commentMapping;
         }
       },
     },
