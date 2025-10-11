@@ -15,7 +15,7 @@ groups:
         link: https://modenc.top
       - name: 异想之旅
         avatar: https://blog.yxzl.dev/head.png
-        description: 异想之旅のBlog
+        desc: 异想之旅のBlog
         link: https://blog.yxzl.dev/
   - title: 项目
     list:
