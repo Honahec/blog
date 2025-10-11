@@ -231,9 +231,10 @@ onBeforeUnmount(() => {
   background-color: #130d0a;
   color: #ede0d5;
   --nav-height: 56px;
-  --hero-height-min: 720px;
-  --hero-height-max: 980px;
-  --hero-height: clamp(var(--hero-height-min), 82vh, var(--hero-height-max));
+  /* --hero-height-min: 720px;
+  --hero-height-max: 1920px;
+  --hero-height: clamp(var(--hero-height-min), 82vh, var(--hero-height-max)); */
+  --hero-height: 82vh;
   --hero-safe-height: calc(var(--hero-height) - var(--nav-height));
 }
 
@@ -253,8 +254,8 @@ onBeforeUnmount(() => {
   background: linear-gradient(
     180deg,
     #130d0a 0%,
-    #18100d 30%,
-    #f3f1ef 80%,
+    #18100d 33%,
+    #f3f1ef 82%,
     #ffffff 100%
   );
 }
@@ -410,7 +411,7 @@ onBeforeUnmount(() => {
   background: linear-gradient(
     135deg,
     rgba(12, 9, 7, 0.78) 0%,
-    rgba(19, 13, 10, 0.6) 45%,
+    rgba(19, 13, 10, 0.6) 20%,
     rgba(255, 255, 255, 0.08) 100%
   );
   border: 1px solid rgba(255, 255, 255, 0.08);
