@@ -426,7 +426,7 @@ Flag was hidden in Git repositories. Find them.
 
 #### 题解
 
-本题给出了四个 Git 仓库，并考察 Git 对象 知识，可查看我博客上的相关内容：[Git 对象](./GitObject.md)（外部跳转请访问 [Git 对象](https://blog.honahec.cc/blog/iftjzdbk/)）
+本题给出了四个 Git 仓库，并考察 Git 对象 知识，可查看我博客上的相关内容：[Git 对象](./GitObject.md)（外部跳转请访问 [Git 对象](https://blog.honahec.cc/blog/9msarmy4/)）
 
 涵盖了本题考察内容
 
