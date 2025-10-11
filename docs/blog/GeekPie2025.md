@@ -86,308 +86,301 @@ setInterval(() => {
 
 **对于 1** ，LLM 给出有效的油猴脚本：
 
-::: collapse
+```js :collapsed-lines
+// ==UserScript==
+// @name         Worker Debugger Neutralizer (inject)
+// @namespace    http://tampermonkey.net/
+// @version      1.6
+// @description  拦截并净化创建的 WebWorker，移除 debugger 死循环 & 注入 importScripts wrapper（注入到页面上下文）
+// @match        *://*/*
+// @run-at       document-start
+// @grant        none
+// ==/UserScript==
 
-- 代码
+(function () {
+  "use strict";
 
-  ```js
-  // ==UserScript==
-  // @name         Worker Debugger Neutralizer (inject)
-  // @namespace    http://tampermonkey.net/
-  // @version      1.6
-  // @description  拦截并净化创建的 WebWorker，移除 debugger 死循环 & 注入 importScripts wrapper（注入到页面上下文）
-  // @match        *://*/*
-  // @run-at       document-start
-  // @grant        none
-  // ==/UserScript==
+  // 将要注入到页面上下文的代码（字符串形式）
+  const INJECT_CODE = `
 
-  (function () {
-    "use strict";
+(function(){
+  // 防重复注入
+  if (window.__worker_debugger_neutralizer_installed) return;
+  window.__worker_debugger_neutralizer_installed = true;
 
-    // 将要注入到页面上下文的代码（字符串形式）
-    const INJECT_CODE = `
-  
-  (function(){
-    // 防重复注入
-    if (window.__worker_debugger_neutralizer_installed) return;
-    window.__worker_debugger_neutralizer_installed = true;
-  
-    // 简单的代码净化函数：移除 debugger; 和常见关键字（可按需扩展）
-    function sanitizeCode(src) {
-      try {
-        // 先把单行/多行注释中的 debugger 保留（不重要），真正移除语句
-        src = src.replace(/\\bdebugger\\s*;?/g, '// removed debugger;');
-        // 移除明显的无限断点循环形式（举例）
-        src = src.replace(/for\\s*\\(\\s*let\\s+[^;]+;\\s*[^;]+;\\s*[^\\)]+\\)\\s*{\\s*debugger\\s*;?\\s*}/g, '// removed loop-debugger');
-        // 标记/替换 devtools 单词避免检测 toString 等
-        src = src.replace(/\\bdevtools\\b/gi, 'dev_tools');
-        return src;
-      } catch (e) {
-        return src;
-      }
+  // 简单的代码净化函数：移除 debugger; 和常见关键字（可按需扩展）
+  function sanitizeCode(src) {
+    try {
+      // 先把单行/多行注释中的 debugger 保留（不重要），真正移除语句
+      src = src.replace(/\\bdebugger\\s*;?/g, '// removed debugger;');
+      // 移除明显的无限断点循环形式（举例）
+      src = src.replace(/for\\s*\\(\\s*let\\s+[^;]+;\\s*[^;]+;\\s*[^\\)]+\\)\\s*{\\s*debugger\\s*;?\\s*}/g, '// removed loop-debugger');
+      // 标记/替换 devtools 单词避免检测 toString 等
+      src = src.replace(/\\bdevtools\\b/gi, 'dev_tools');
+      return src;
+    } catch (e) {
+      return src;
     }
-  
-    // 在 Worker 源码前注入 wrapper，重写 importScripts、console、setTimeout 等，尽可能先行保护
-    function makeWrapperPrefix() {
-      return '\\n' +
-        '(function(){\\n' +
-        '  try{\\n' +
-        '    const _importScripts = self.importScripts;\\n' +
-        '    self.importScripts = function(){\\n' +
-        '      try{\\n' +
-        '        const sanitizedArgs = Array.prototype.slice.call(arguments).map(function(u){\\n' +
-        '          // 如果是相对/绝对 URL，尝试 fetch 替换里面的 debugger（若失败回退原 URL）\\n' +
-        '          return u;\\n' +
-        '        });\\n' +
-        '        return _importScripts.apply(self, sanitizedArgs);\\n' +
-        '      }catch(e){\\n' +
-        '        try{ return _importScripts.apply(self, arguments); }catch(e){}\\n' +
-        '      }\\n' +
-        '    };\\n' +
-        '  }catch(e){}\\n' +
-        '  // 防止 worker 内再触发 debugger 造成卡死\\n' +
-        '  try{\\n' +
-        '    Object.defineProperty(self, \"debugger\", { get: function(){ return undefined; }, configurable: true });\\n' +
-        '  }catch(e){}\\n' +
-        '  // 覆盖 setInterval/setTimeout 以防止外部注入死循环检测\\n' +
-        '  try{\\n' +
-        '    const _si = self.setInterval; const _st = self.setTimeout;\\n' +
-        '    self.setInterval = function(fn, t){ if(typeof fn === \"function\") { return _si(function(){ try{ return fn.apply(this,arguments); }catch(e){} }, t); } return _si(fn,t); };\\n' +
-        '    self.setTimeout = function(fn, t){ if(typeof fn === \"function\") { return _st(function(){ try{ return fn.apply(this,arguments); }catch(e){} }, t); } return _st(fn,t); };\\n' +
-        '  }catch(e){}\\n' +
-        '})();\\n';
-    }
-  
-    const wrapperPrefix = makeWrapperPrefix();
-  
-    // 保存原始 Worker 构造
-    const RealWorker = window.Worker;
-    const realCreateObjectURL = URL.createObjectURL.bind(URL);
-  
-    // 用于生成真实 Worker 的辅助（异步）
-    async function createSanitizedWorkerFromSourceText(src, options) {
+  }
+
+  // 在 Worker 源码前注入 wrapper，重写 importScripts、console、setTimeout 等，尽可能先行保护
+  function makeWrapperPrefix() {
+    return '\\n' +
+      '(function(){\\n' +
+      '  try{\\n' +
+      '    const _importScripts = self.importScripts;\\n' +
+      '    self.importScripts = function(){\\n' +
+      '      try{\\n' +
+      '        const sanitizedArgs = Array.prototype.slice.call(arguments).map(function(u){\\n' +
+      '          // 如果是相对/绝对 URL，尝试 fetch 替换里面的 debugger（若失败回退原 URL）\\n' +
+      '          return u;\\n' +
+      '        });\\n' +
+      '        return _importScripts.apply(self, sanitizedArgs);\\n' +
+      '      }catch(e){\\n' +
+      '        try{ return _importScripts.apply(self, arguments); }catch(e){}\\n' +
+      '      }\\n' +
+      '    };\\n' +
+      '  }catch(e){}\\n' +
+      '  // 防止 worker 内再触发 debugger 造成卡死\\n' +
+      '  try{\\n' +
+      '    Object.defineProperty(self, \"debugger\", { get: function(){ return undefined; }, configurable: true });\\n' +
+      '  }catch(e){}\\n' +
+      '  // 覆盖 setInterval/setTimeout 以防止外部注入死循环检测\\n' +
+      '  try{\\n' +
+      '    const _si = self.setInterval; const _st = self.setTimeout;\\n' +
+      '    self.setInterval = function(fn, t){ if(typeof fn === \"function\") { return _si(function(){ try{ return fn.apply(this,arguments); }catch(e){} }, t); } return _si(fn,t); };\\n' +
+      '    self.setTimeout = function(fn, t){ if(typeof fn === \"function\") { return _st(function(){ try{ return fn.apply(this,arguments); }catch(e){} }, t); } return _st(fn,t); };\\n' +
+      '  }catch(e){}\\n' +
+      '})();\\n';
+  }
+
+  const wrapperPrefix = makeWrapperPrefix();
+
+  // 保存原始 Worker 构造
+  const RealWorker = window.Worker;
+  const realCreateObjectURL = URL.createObjectURL.bind(URL);
+
+  // 用于生成真实 Worker 的辅助（异步）
+  async function createSanitizedWorkerFromSourceText(src, options) {
+    try {
+      const sanitized = sanitizeCode(src);
+      const finalSrc = wrapperPrefix + '\\n' + sanitized;
+      const blob = new Blob([finalSrc], { type: 'application/javascript' });
+      const blobUrl = realCreateObjectURL(blob);
+      return new RealWorker(blobUrl, options);
+    } catch (e) {
+      // 失败回退：直接尝试用原始脚本（可能包含 debugger）
       try {
-        const sanitized = sanitizeCode(src);
-        const finalSrc = wrapperPrefix + '\\n' + sanitized;
-        const blob = new Blob([finalSrc], { type: 'application/javascript' });
+        const blob = new Blob([src], { type: 'application/javascript' });
         const blobUrl = realCreateObjectURL(blob);
         return new RealWorker(blobUrl, options);
-      } catch (e) {
-        // 失败回退：直接尝试用原始脚本（可能包含 debugger）
-        try {
-          const blob = new Blob([src], { type: 'application/javascript' });
-          const blobUrl = realCreateObjectURL(blob);
-          return new RealWorker(blobUrl, options);
-        } catch (ee) {
-          throw ee;
-        }
+      } catch (ee) {
+        throw ee;
       }
     }
-  
-    // 返回一个“伪 Worker”并异步创建真实 Worker，完成后转发
-    function makeProxyWorker() {
-      let _listeners = {};
-      let _onmessage = null;
-      let _real = null;
-      let _pendingMsgs = [];
-      let _terminated = false;
-  
-      const proxy = {
-        // 标准 API：postMessage
-        postMessage: function(msg, transfer) {
-          if (_terminated) return;
-          if (_real) {
-            try { _real.postMessage(msg, transfer); } catch(e) {}
-          } else {
-            _pendingMsgs.push({msg, transfer});
-          }
-        },
-        addEventListener: function(type, cb) {
-          _listeners[type] = _listeners[type] || new Set();
-          _listeners[type].add(cb);
-        },
-        removeEventListener: function(type, cb) {
-          if (_listeners[type]) _listeners[type].delete(cb);
-        },
-        terminate: function() {
-          _terminated = true;
-          try { if (_real) _real.terminate(); }catch(e){}
-          _real = null;
-          _listeners = {};
-          _pendingMsgs = [];
-        },
-        // onmessage 属性
-        set onmessage(fn) { _onmessage = fn; },
-        get onmessage() { return _onmessage; },
-  
-        // 内部：把真实 worker 绑定到代理并转发事件
-        _bindReal: function(realWorker) {
-          if (_terminated) { try{ realWorker.terminate(); }catch(e){}; return; }
-          _real = realWorker;
-          // 转发 pending messages
-          for (const p of _pendingMsgs) {
-            try { _real.postMessage(p.msg, p.transfer); } catch(e) {}
-          }
-          _pendingMsgs = [];
-  
-          // 绑定事件转发
-          _real.onmessage = function(ev) {
-            // 先触发 onmessage 回调
-            try { if (typeof _onmessage === 'function') _onmessage.call(proxy, ev); } catch(e){}
-            // 再触发 addEventListener 注册的回调
-            try {
-              const s = _listeners['message'];
-              if (s) for (const cb of s) { try{ cb.call(proxy, ev); }catch(e){} }
-            } catch(e){}
-          };
-          // 支持 messageerror
-          _real.onmessageerror = function(ev) {
-            try {
-              const s = _listeners['messageerror'];
-              if (s) for (const cb of s) { try{ cb.call(proxy, ev); }catch(e){} }
-            } catch(e){}
-          };
+  }
+
+  // 返回一个“伪 Worker”并异步创建真实 Worker，完成后转发
+  function makeProxyWorker() {
+    let _listeners = {};
+    let _onmessage = null;
+    let _real = null;
+    let _pendingMsgs = [];
+    let _terminated = false;
+
+    const proxy = {
+      // 标准 API：postMessage
+      postMessage: function(msg, transfer) {
+        if (_terminated) return;
+        if (_real) {
+          try { _real.postMessage(msg, transfer); } catch(e) {}
+        } else {
+          _pendingMsgs.push({msg, transfer});
         }
-      };
-  
-      return proxy;
-    }
-  
-    // 覆盖 window.Worker
-    window.Worker = function(scriptURL, options) {
-      // 1) 如果第二个参数 omitted，options 可能为 undefined — 直接传透
-      const proxy = makeProxyWorker();
-  
-      // 异步处理各种 scriptURL 类型
-      (async function() {
-        try {
-          // helper: 获取脚本文本（若可行）
-          async function fetchTextFrom(url) {
+      },
+      addEventListener: function(type, cb) {
+        _listeners[type] = _listeners[type] || new Set();
+        _listeners[type].add(cb);
+      },
+      removeEventListener: function(type, cb) {
+        if (_listeners[type]) _listeners[type].delete(cb);
+      },
+      terminate: function() {
+        _terminated = true;
+        try { if (_real) _real.terminate(); }catch(e){}
+        _real = null;
+        _listeners = {};
+        _pendingMsgs = [];
+      },
+      // onmessage 属性
+      set onmessage(fn) { _onmessage = fn; },
+      get onmessage() { return _onmessage; },
+
+      // 内部：把真实 worker 绑定到代理并转发事件
+      _bindReal: function(realWorker) {
+        if (_terminated) { try{ realWorker.terminate(); }catch(e){}; return; }
+        _real = realWorker;
+        // 转发 pending messages
+        for (const p of _pendingMsgs) {
+          try { _real.postMessage(p.msg, p.transfer); } catch(e) {}
+        }
+        _pendingMsgs = [];
+
+        // 绑定事件转发
+        _real.onmessage = function(ev) {
+          // 先触发 onmessage 回调
+          try { if (typeof _onmessage === 'function') _onmessage.call(proxy, ev); } catch(e){}
+          // 再触发 addEventListener 注册的回调
+          try {
+            const s = _listeners['message'];
+            if (s) for (const cb of s) { try{ cb.call(proxy, ev); }catch(e){} }
+          } catch(e){}
+        };
+        // 支持 messageerror
+        _real.onmessageerror = function(ev) {
+          try {
+            const s = _listeners['messageerror'];
+            if (s) for (const cb of s) { try{ cb.call(proxy, ev); }catch(e){} }
+          } catch(e){}
+        };
+      }
+    };
+
+    return proxy;
+  }
+
+  // 覆盖 window.Worker
+  window.Worker = function(scriptURL, options) {
+    // 1) 如果第二个参数 omitted，options 可能为 undefined — 直接传透
+    const proxy = makeProxyWorker();
+
+    // 异步处理各种 scriptURL 类型
+    (async function() {
+      try {
+        // helper: 获取脚本文本（若可行）
+        async function fetchTextFrom(url) {
+          try {
+            // 尝试 fetch（CORS 可能阻止）
+            const r = await fetch(url, { credentials: 'same-origin' });
+            if (!r.ok) throw new Error('fetch failed:' + r.status);
+            return await r.text();
+          } catch (e) {
+            // 作为回退，试试 XMLHttpRequest 同源同步（仅对同源有效）
             try {
-              // 尝试 fetch（CORS 可能阻止）
-              const r = await fetch(url, { credentials: 'same-origin' });
-              if (!r.ok) throw new Error('fetch failed:' + r.status);
-              return await r.text();
-            } catch (e) {
-              // 作为回退，试试 XMLHttpRequest 同源同步（仅对同源有效）
-              try {
-                const xhr = new XMLHttpRequest();
-                xhr.open('GET', url, false); // 同步
-                xhr.send(null);
-                if (xhr.status === 200 || (location.protocol === 'file:' && xhr.status === 0)) {
-                  return xhr.responseText;
-                }
-              } catch (ee){}
-              throw e;
-            }
+              const xhr = new XMLHttpRequest();
+              xhr.open('GET', url, false); // 同步
+              xhr.send(null);
+              if (xhr.status === 200 || (location.protocol === 'file:' && xhr.status === 0)) {
+                return xhr.responseText;
+              }
+            } catch (ee){}
+            throw e;
           }
-  
-          // 处理不同形式的 scriptURL
-          if (typeof scriptURL === 'string') {
-            if (scriptURL.startsWith('blob:')) {
-              // 对 blob: URL，尝试 fetch 并读取文本
-              try {
-                const txt = await (await fetch(scriptURL)).text();
-                const real = await createSanitizedWorkerFromSourceText(txt, options);
-                proxy._bindReal(real);
-                return;
-              } catch (e) {
-                // 回退：直接创建原始 Worker
-                try { const real = new RealWorker(scriptURL, options); proxy._bindReal(real); return; } catch(e){}
-              }
-            } else if (scriptURL.startsWith('data:')) {
-              // data URL：解码出内容
-              try {
-                const comma = scriptURL.indexOf(',');
-                const meta = scriptURL.substring(5, comma);
-                const data = scriptURL.substring(comma + 1);
-                const isBase64 = /base64/i.test(meta);
-                const txt = isBase64 ? atob(data) : decodeURIComponent(data);
-                const real = await createSanitizedWorkerFromSourceText(txt, options);
-                proxy._bindReal(real);
-                return;
-              } catch (e) {
-                try { const real = new RealWorker(scriptURL, options); proxy._bindReal(real); return; } catch(e){}
-              }
-            } else {
-              // 普通 URL（可能跨域）
-              try {
-                const txt = await fetchTextFrom(scriptURL);
-                const real = await createSanitizedWorkerFromSourceText(txt, options);
-                proxy._bindReal(real);
-                return;
-              } catch (e) {
-                // 失败（CORS 等），回退到直接用原始 URL
-                try { const real = new RealWorker(scriptURL, options); proxy._bindReal(real); return; } catch(e){}
-              }
-            }
-          } else if (scriptURL instanceof Blob) {
+        }
+
+        // 处理不同形式的 scriptURL
+        if (typeof scriptURL === 'string') {
+          if (scriptURL.startsWith('blob:')) {
+            // 对 blob: URL，尝试 fetch 并读取文本
             try {
-              const txt = await (new Response(scriptURL)).text();
+              const txt = await (await fetch(scriptURL)).text();
               const real = await createSanitizedWorkerFromSourceText(txt, options);
               proxy._bindReal(real);
               return;
             } catch (e) {
-              try { const url = realCreateObjectURL(scriptURL); const real = new RealWorker(url, options); proxy._bindReal(real); return; } catch(e){}
+              // 回退：直接创建原始 Worker
+              try { const real = new RealWorker(scriptURL, options); proxy._bindReal(real); return; } catch(e){}
+            }
+          } else if (scriptURL.startsWith('data:')) {
+            // data URL：解码出内容
+            try {
+              const comma = scriptURL.indexOf(',');
+              const meta = scriptURL.substring(5, comma);
+              const data = scriptURL.substring(comma + 1);
+              const isBase64 = /base64/i.test(meta);
+              const txt = isBase64 ? atob(data) : decodeURIComponent(data);
+              const real = await createSanitizedWorkerFromSourceText(txt, options);
+              proxy._bindReal(real);
+              return;
+            } catch (e) {
+              try { const real = new RealWorker(scriptURL, options); proxy._bindReal(real); return; } catch(e){}
+            }
+          } else {
+            // 普通 URL（可能跨域）
+            try {
+              const txt = await fetchTextFrom(scriptURL);
+              const real = await createSanitizedWorkerFromSourceText(txt, options);
+              proxy._bindReal(real);
+              return;
+            } catch (e) {
+              // 失败（CORS 等），回退到直接用原始 URL
+              try { const real = new RealWorker(scriptURL, options); proxy._bindReal(real); return; } catch(e){}
             }
           }
-  
-          // 最后回退：直接尝试构造（如果上面都没成功）
-          try { const real = new RealWorker(scriptURL, options); proxy._bindReal(real); return; } catch(e){ console.error('Worker creation fallback failed', e); }
-  
-        } catch (err) {
-          // 万一整个流程失败，尝试直接使用原始 Worker
-          try { const real = new RealWorker(scriptURL, options); proxy._bindReal(real); } catch(e) { console.error('create worker failed', e); }
+        } else if (scriptURL instanceof Blob) {
+          try {
+            const txt = await (new Response(scriptURL)).text();
+            const real = await createSanitizedWorkerFromSourceText(txt, options);
+            proxy._bindReal(real);
+            return;
+          } catch (e) {
+            try { const url = realCreateObjectURL(scriptURL); const real = new RealWorker(url, options); proxy._bindReal(real); return; } catch(e){}
+          }
         }
-      })();
-  
-      return proxy;
-    };
-  
-    // 保证 new Worker.prototype instanceof Worker 的行为兼容（尽力）
-    try {
-      window.Worker.prototype = RealWorker.prototype;
-    } catch(e){}
-  
-    // 覆盖 URL.createObjectURL：让 Blob->objectURL 的情况也被捕获（可选）
-    (function(){
-      const orig = URL.createObjectURL.bind(URL);
-      URL.createObjectURL = function(obj) {
-        try {
-          // 直接返回原始行为（我们主要在 Worker ctor 里处理 Blob 内容）
-          return orig(obj);
-        } catch(e) {
-          return orig(obj);
-        }
-      };
-    })();
-  
-  })();
-  `; // end INJECT_CODE
 
-    // 把脚本注入到页面上下文：在 documentElement 前插入一个 <script>
-    function inject(code) {
-      try {
-        const el = document.createElement("script");
-        el.textContent = code;
-        // 标记并立即插入，尽量在页面脚本之前运行
-        const ref = document.documentElement || document.head || document.body;
-        if (ref) ref.prepend(el);
-        else document.documentElement.appendChild(el);
-        // 可选：移除脚本标签以免泄露
-        setTimeout(() => el.remove(), 1000);
-      } catch (e) {
-        console.error("inject failed", e);
+        // 最后回退：直接尝试构造（如果上面都没成功）
+        try { const real = new RealWorker(scriptURL, options); proxy._bindReal(real); return; } catch(e){ console.error('Worker creation fallback failed', e); }
+
+      } catch (err) {
+        // 万一整个流程失败，尝试直接使用原始 Worker
+        try { const real = new RealWorker(scriptURL, options); proxy._bindReal(real); } catch(e) { console.error('create worker failed', e); }
       }
-    }
+    })();
 
-    inject(INJECT_CODE);
+    return proxy;
+  };
+
+  // 保证 new Worker.prototype instanceof Worker 的行为兼容（尽力）
+  try {
+    window.Worker.prototype = RealWorker.prototype;
+  } catch(e){}
+
+  // 覆盖 URL.createObjectURL：让 Blob->objectURL 的情况也被捕获（可选）
+  (function(){
+    const orig = URL.createObjectURL.bind(URL);
+    URL.createObjectURL = function(obj) {
+      try {
+        // 直接返回原始行为（我们主要在 Worker ctor 里处理 Blob 内容）
+        return orig(obj);
+      } catch(e) {
+        return orig(obj);
+      }
+    };
   })();
-  ```
 
-:::
+})();
+`; // end INJECT_CODE
 
-<br>
+  // 把脚本注入到页面上下文：在 documentElement 前插入一个 <script>
+  function inject(code) {
+    try {
+      const el = document.createElement("script");
+      el.textContent = code;
+      // 标记并立即插入，尽量在页面脚本之前运行
+      const ref = document.documentElement || document.head || document.body;
+      if (ref) ref.prepend(el);
+      else document.documentElement.appendChild(el);
+      // 可选：移除脚本标签以免泄露
+      setTimeout(() => el.remove(), 1000);
+    } catch (e) {
+      console.error("inject failed", e);
+    }
+  }
+
+  inject(INJECT_CODE);
+})();
+```
+
 这个脚本干了以下几件事：
 
 - 所有 `debugger` 都被正则替换掉
