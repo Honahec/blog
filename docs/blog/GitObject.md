@@ -8,6 +8,7 @@ tags:
   - 项目管理
 ---
 
+> [!TIP]
 > 本段内容为 Git 较为底层的实现，并非 Git 教程，请确保你有足够的好奇并基本掌握 Git 用法后再看
 
 ## Git 对象模型总览（Git Object Model）
