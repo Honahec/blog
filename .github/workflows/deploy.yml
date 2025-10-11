@@ -38,11 +38,11 @@ jobs:
           NODE_OPTIONS: --max_old_space_size=8192
         run: |-
           pnpm run docs:build
-          > src/.vuepress/dist/.nojekyll
-          echo "blog.honahec.cc" > src/.vuepress/dist/CNAME
+          > docs/.vuepress/dist/.nojekyll
+          echo "blog.honahec.cc" > docs/.vuepress/dist/CNAME
 
       - name: 部署文档
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
-          folder: src/.vuepress/dist
+          folder: docs/.vuepress/dist
