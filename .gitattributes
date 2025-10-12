@@ -1,1 +1,12 @@
-*.md linguist-detectable=false
+* text eol=lf
+*.txt text eol=crlf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.ico binary
+*.gif binary
+*.tff binary
+*.woff binary
+*.woff2 binary
+*.pdf binary
