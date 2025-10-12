@@ -1,4 +1,13 @@
 <script setup lang="ts">
+/*
+  Based on “Multi-layered Parallax Illustration” by Patrick Westwood  
+  Original CodePen: https://codepen.io/patrickwestwood/pen/MyoBaY  
+  Licensed under MIT License  
+  Copyright (c) 2025 Patrick Westwood  
+
+  Modified by Honahec, 2025  
+*/
+
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
 
 type HeroAction = {
