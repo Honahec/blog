@@ -72,12 +72,12 @@ export default defineUserConfig({
     hostname: "https://blog.honahec.cc",
 
     /* 文档仓库配置，用于 editLink */
-    // docsRepo: '',
-    // docsDir: 'docs',
-    // docsBranch: '',
+    docsRepo: "Honahec/blog",
+    docsDir: "docs",
+    docsBranch: "main",
 
     /* 页内信息 */
-    // editLink: true,
+    editLink: true,
     // lastUpdated: true,
     contributors: false,
     changelog: true,
