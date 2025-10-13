@@ -22,9 +22,13 @@ copyright:
 举个简单例子，你登录了百度账号（baidu.com/），接下来你再访问以下站点都将是登录状态，无需再重复登录。
 
 百度网盘：pan.baidu.com/
+
 百度文库：wenku.baidu.com/
+
 文心一言：yiyan.baidu.com/
+
 百度翻译：fanyi.baidu.com/
+
 单点登录的核心目标就是为了提升用户体验，简化登录流程。
 
 ## 2. 为什么要用 SSO？
