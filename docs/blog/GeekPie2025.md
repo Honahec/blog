@@ -575,7 +575,7 @@ next_hash: 1f649cdf7e7c8558c988059adcf546a9b6f902c4543c28092dc598511bd6a41d
 
 <img src="https://image.honahec.cc/e1dbcf0eb71f763af3d6056f8b336c97.jpg" style="zoom:50%;" />
 
-附他的[博客题解](https://modenc.top/article/noeu6vz4/)（20251004 后链接有效）
+附他的[博客题解](https://modenc.top/blog/noeu6vz4/)（20251004 后链接有效）
 
 ### M Electronic Engineering
 
