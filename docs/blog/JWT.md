@@ -16,10 +16,14 @@ tags:
 
 在传统 Web 应用架构（特别是服务端渲染 + 后端管理会话的模式）中，一个常见流程是：
 
+:::steps
+
 1. 用户提交用户名 + 密码给服务器；
 2. 服务器验证成功后，在服务器端生成一个 Session（如存入内存、Redis、数据库等），并给客户端返回一个 session id；
 3. 客户端浏览器以 Cookie 的方式保存 session id，并在后续每个请求里自动带上；
 4. 服务器根据这个 session id 查到对应的用户信息，就知道这是哪个登录用户，从而进行权限判断、返回数据等。
+
+:::
 
 这种方式的问题或局限包括：
 
@@ -143,36 +147,47 @@ HEADER_BASE64.PAYLOAD_BASE64.SIGNATURE_BASE64
 
 ### 典型流程
 
-#### 登录 / 认证 （Authentication）
+:::steps
 
-- 前端用户填写用户名 / 密码，提交给后端 login 接口。
-- 后端验证用户名 / 密码。如果认证成功，那么后端生成一个 JWT，包含用户 ID、角色、过期时间等信息。
-- 后端把这个 JWT 返回给前端。
+1. 登录 / 认证 （Authentication）
 
-#### 前端保存 token
+   前端用户填写用户名 / 密码，提交给后端 login 接口。
 
-- 前端收到 JWT 后，一般存储在合适的位置（如 Http Only Cookie）
+   后端验证用户名 / 密码。如果认证成功，那么后端生成一个 JWT，包含用户 ID、角色、过期时间等信息。
 
-#### 请求受保护接口时带上 token
+   后端把这个 JWT 返回给前端。
 
-- 前端在每次调用后端受保护 API 时，在 HTTP 请求头里添加 `Authorization: Bearer <token>`。
-- 后端收到请求，将 Authorization 头里的 token 取出来，做验证。
+2. 前端保存 token
 
-#### 服务端验证 token
+   前端收到 JWT 后，一般存储在合适的位置（如 Http Only Cookie）
 
-- 后端使用事先保存的 secret（对于 HMAC）或公钥（对于 RSA/ECDSA）对 token 的签名进行校验。
-- 如果签名不正确、token 过期、被篡改、不可用等，都拒绝访问。
-- 如果验证通过，解析 payload 得到用户身份信息（如用户 ID、角色等），然后可以继续做权限判断、返回数据等。
+3. 请求受保护接口时带上 token
 
-#### 刷新 / 续期
+   前端在每次调用后端受保护 API 时，在 HTTP 请求头里添加 `Authorization: Bearer <token>`。
 
-- 通常 JWT 会带 `exp`（过期时间），过期后就不能再用。
-- 为了用户体验，通常还会设计一个 refresh token 的机制：短期有效的 access token + 长期有效的 refresh token。前端可以通过 refresh token 来获取新的 access token。
-- 这样可以缩短 access token 的有效期，降低被盗风险；同时又不强迫用户频繁登录。
+   后端收到请求，将 Authorization 头里的 token 取出来，做验证。
 
-#### 维护黑名单
+4. 服务端验证 token
 
-- 在用户登出时，为防止原本 token 继续被使用，通常会将原本的 token 拉入黑名单
+   后端使用事先保存的 secret（对于 HMAC）或公钥（对于 RSA/ECDSA）对 token 的签名进行校验。
+
+   如果签名不正确、token 过期、被篡改、不可用等，都拒绝访问。
+
+   如果验证通过，解析 payload 得到用户身份信息（如用户 ID、角色等），然后可以继续做权限判断、返回数据等。
+
+5. 刷新 / 续期
+
+   通常 JWT 会带 `exp`（过期时间），过期后就不能再用。
+
+   为了用户体验，通常还会设计一个 refresh token 的机制：短期有效的 access token + 长期有效的 refresh token。前端可以通过 refresh token 来获取新的 access token。
+
+   这样可以缩短 access token 的有效期，降低被盗风险；同时又不强迫用户频繁登录。
+
+6. 维护黑名单
+
+   在用户登出时，为防止原本 token 继续被使用，通常会将原本的 token 拉入黑名单
+
+:::
 
 ## 实际示例
 
