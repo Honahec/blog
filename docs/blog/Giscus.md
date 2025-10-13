@@ -94,7 +94,7 @@ defineClientConfig({
 
 ==为什么要设置 commentMapping 而不是直接读 giscus?==
 
-### commentMapping 的作用 / 为何不直接读 giscus 字段
+### commentMapping 的作用
 
 - VuePress/Plume 的评论插件期望从前端配置里读到标准字段：`comment`、`commentID`、`commentMapping` 等，然后据此初始化 Giscus
 
