@@ -28,12 +28,12 @@
     "typescript": "^5.9.3",
     "vue": "^3.5.22",
     "vuepress": "2.0.0-rc.24",
-    "vuepress-theme-plume": "1.0.0-rc.169"
+    "vuepress-theme-plume": "1.0.0-rc.171"
   },
   "dependencies": {
     "@vuepress/shiki-twoslash": "2.0.0-rc.112",
     "artplayer": "^5.3.0",
-    "chart.js": "^4.5.0",
+    "chart.js": "^4.5.1",
     "echarts": "^6.0.0",
     "flowchart.ts": "^3.0.1",
     "mermaid": "^11.12.0",
