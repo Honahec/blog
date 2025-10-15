@@ -9,6 +9,7 @@
 */
 
 import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { RouterLink } from "vue-router";
 
 type HeroAction = {
   text: string;
@@ -196,20 +197,26 @@ onBeforeUnmount(() => {
                 v-for="(action, index) in hero.actions"
                 :key="`${action.text}-${index}`"
               >
-                <a
-                  v-if="action.link"
-                  :href="action.link"
-                  class="hero-card__action"
-                  :class="action.theme ? `is-${action.theme}` : ''"
-                  :target="isExternalLink(action.link) ? '_blank' : undefined"
-                  :rel="
-                    isExternalLink(action.link)
-                      ? 'noopener noreferrer'
-                      : undefined
-                  "
-                >
-                  {{ action.text }}
-                </a>
+                <template v-if="action.link">
+                  <a
+                    v-if="isExternalLink(action.link)"
+                    :href="action.link"
+                    class="hero-card__action"
+                    :class="action.theme ? `is-${action.theme}` : ''"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {{ action.text }}
+                  </a>
+                  <RouterLink
+                    v-else
+                    :to="action.link"
+                    class="hero-card__action"
+                    :class="action.theme ? `is-${action.theme}` : ''"
+                  >
+                    {{ action.text }}
+                  </RouterLink>
+                </template>
                 <span v-else class="hero-card__action is-static">
                   {{ action.text }}
                 </span>
@@ -261,12 +268,13 @@ onBeforeUnmount(() => {
   z-index: 1;
   margin-top: 0;
   background: linear-gradient(
-    180deg,
-    #130d0a 0%,
-    #18100d 33%,
-    #f3f1ef 82%,
-    #ffffff 100%
-  );
+      180deg,
+      #130d0a 0%,
+      #18100d 33%,
+      rgba(24, 16, 13, 0.35) 70%,
+      rgba(24, 16, 13, 0) 100%
+    ),
+    linear-gradient(180deg, var(--vp-c-bg-soft) 0%, var(--vp-c-bg) 100%);
 }
 
 .content-gradient {
@@ -315,11 +323,15 @@ onBeforeUnmount(() => {
   background-image: url("https://image.honahec.cc/ilu_bg.jpg");
   background-size: cover;
   background-position: center bottom;
+  opacity: 0;
+  animation: layerImageFadeIn 1.1s ease-out forwards;
 }
 
 .layer-1 {
   background-image: url("https://image.honahec.cc/ilu_03.png");
   background-position: left bottom;
+  opacity: 0;
+  animation: layerImageFadeIn 3.4s ease-out 0.1s forwards;
 }
 
 .layer-2 {
@@ -342,6 +354,17 @@ onBeforeUnmount(() => {
   background-image: url("https://image.honahec.cc/ilu_overlay.png");
   background-size: cover;
   background-position: center bottom;
+  opacity: 0;
+  animation: layerImageFadeIn 1.1s ease-out forwards;
+}
+
+@keyframes layerImageFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .scroll-indicator {

@@ -101,7 +101,7 @@ const timelineData = [
 
 .timeline-item.current .timeline-dot {
   background: linear-gradient(135deg, #10b981, #059669);
-  animation: pulse 2s infinite;
+  animation: pulse 3s infinite;
 }
 
 .timeline-item.future .timeline-dot {
@@ -120,21 +120,21 @@ const timelineData = [
 .year {
   font-size: 1.25rem;
   font-weight: bold;
-  color: #1f2937;
+  /* color: #1f2937; */
   margin-bottom: 0.5rem;
 }
 
 .title {
   font-size: 1rem;
   font-weight: 600;
-  color: #374151;
+  /* color: #374151; */
   margin-bottom: 0.25rem;
 }
 
 .period {
   font-size: 0.875rem;
   color: #6b7280;
-  font-style: italic;
+  /* font-style: italic; */
 }
 
 .timeline-item.current .year {
@@ -152,7 +152,7 @@ const timelineData = [
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
   50% {
-    transform: scale(1.05);
+    transform: scale(1.1);
     box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
   }
 }
