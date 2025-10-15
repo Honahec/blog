@@ -31,6 +31,7 @@
     "vuepress-theme-plume": "1.0.0-rc.171"
   },
   "dependencies": {
+    "@vuepress/plugin-google-analytics": "2.0.0-rc.112",
     "@vuepress/shiki-twoslash": "2.0.0-rc.112",
     "artplayer": "^5.3.0",
     "chart.js": "^4.5.1",
