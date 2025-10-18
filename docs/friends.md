@@ -108,7 +108,7 @@ desc: Honahec's Blog
 link: https://blog.honahec.cc
 ```
 
-我会在看到留言或 PR 后尽快添加友联
+我会在看到留言或 PR 后尽快添加友链
 
 <style scoped>
 .friends-wrapper {
