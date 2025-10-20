@@ -40,12 +40,10 @@ jobs:
           pnpm run docs:build
           > docs/.vuepress/dist/.nojekyll
           echo "blog.honahec.cc" > docs/.vuepress/dist/CNAME
+          echo ${{ secrets.INDEXNOW_KEY }} > docs/.vuepress/dist/${{ secrets.INDEXNOW_KEY }}.txt
 
       - name: 部署文档
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           branch: gh-pages
           folder: docs/.vuepress/dist
-
-      - name: Setup IndexNow
-        run: echo ${{ secrets.INDEXNOW_KEY }} > docs/.vuepress/dist/${{ secrets.INDEXNOW_KEY }}.txt
