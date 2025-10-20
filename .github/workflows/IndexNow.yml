@@ -2,7 +2,7 @@ name: "IndexNow"
 on:
   push:
     branches:
-      - main
+      - gh-pages
   schedule:
     # 每3天的 UTC 时间 04:00 运行一次
     - cron: '0 4 */3 * *'
