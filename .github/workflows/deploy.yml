@@ -46,3 +46,6 @@ jobs:
         with:
           branch: gh-pages
           folder: docs/.vuepress/dist
+
+      - name: Setup IndexNow
+        run: echo ${{ secrets.INDEXNOW_KEY }} > ${{ secrets.INDEXNOW_KEY }}.txt
