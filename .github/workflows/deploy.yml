@@ -48,4 +48,4 @@ jobs:
           folder: docs/.vuepress/dist
 
       - name: Setup IndexNow
-        run: echo ${{ secrets.INDEXNOW_KEY }} > ${{ secrets.INDEXNOW_KEY }}.txt
+        run: echo ${{ secrets.INDEXNOW_KEY }} > docs/.vuepress/dist/${{ secrets.INDEXNOW_KEY }}.txt
