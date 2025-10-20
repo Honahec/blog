@@ -53,8 +53,7 @@ jobs:
         with:
           sitemap-location: "https://blog.honahec.cc/sitemap.xml"
           endpoint: "www.bing.com"
-          since: 3
+          since: 30
           since-unit: "day"
-          limit: 10
           key: ${{ secrets.INDEXNOW_KEY }}
           key-location: ${{ secrets.INDEXNOW_KEY_LOCATION }}
