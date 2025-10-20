@@ -47,3 +47,14 @@ jobs:
         with:
           branch: gh-pages
           folder: docs/.vuepress/dist
+
+      - name: submit-to-bing
+        uses: bojieyang/indexnow-action@v2
+        with:
+          sitemap-location: "https://blog.honahec.cc/sitemap.xml"
+          endpoint: "www.bing.com"
+          since: 3
+          since-unit: "day"
+          limit: 10
+          key: ${{ secrets.INDEXNOW_KEY }}
+          key-location: ${{ secrets.INDEXNOW_KEY_LOCATION }}
