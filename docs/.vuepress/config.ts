@@ -120,7 +120,7 @@ export default defineUserConfig({
       provider: "algolia",
       appId: "5SPFQCFEYA",
       apiKey: "c5256d53d6dc7178f6470e2491cc765a",
-      indexName: "Blog",
+      indices: ["Blog"],
     },
 
     /**
