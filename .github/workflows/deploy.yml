@@ -48,6 +48,10 @@ jobs:
           branch: gh-pages
           folder: docs/.vuepress/dist
 
+      # 等待 GitHub Pages 更新
+      - name: Wait for GitHub Pages to update
+        run: sleep 20
+
       - name: submit-to-bing
         uses: bojieyang/indexnow-action@v2
         with:
@@ -57,3 +61,16 @@ jobs:
           since-unit: "day"
           key: ${{ secrets.INDEXNOW_KEY }}
           key-location: ${{ secrets.INDEXNOW_KEY_LOCATION }}
+
+      # 刷新 DogeCloud CDN 缓存
+      - name: Refresh DogeCloud CDN directory
+        env:
+          DOGE_ACCESS_KEY: ${{ secrets.DOGE_ACCESS_KEY }}
+          DOGE_SECRET_KEY: ${{ secrets.DOGE_SECRET_KEY }}
+        run: |
+          BODY="rtype=path&urls=[\"https://blog.honahec.cc/\"]"
+          SIGN=$(echo -n "$BODY" | openssl dgst -sha1 -hmac "$DOGE_SECRET_KEY" -binary | base64)
+          curl -X POST "https://api.dogecloud.com/cdn/refresh/add.json" \
+            -H "Authorization: TOKEN ${DOGE_ACCESS_KEY}:${SIGN}" \
+            -H "Content-Type: application/x-www-form-urlencoded" \
+            -d "$BODY"
