@@ -12,4 +12,5 @@ export default defineNavbarConfig([
   { text: "博客", link: "/blog/" },
   { text: "标签", link: "/blog/tags/" },
   { text: "友链", link: "/friends/" },
+  { text: "我的主页", link: "https://honahec.cc/"}
 ]);
