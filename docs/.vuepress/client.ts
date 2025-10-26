@@ -53,19 +53,19 @@ export default defineClientConfig({
 
     // 动态注入一言到 hero text
     onMounted(async () => {
-      const isHomePage = route.path === "/" || route.path === "/index.html" || frontmatter.value.home === true;
+      const isHomePage = route.path === "/";
       
       if (isHomePage) {
         try {
           const response = await fetch("https://api.honahec.cc/yiyan/get/");
           const data = await response.json();
-          const yiyanText = data.author ? `${data.content} —— ${data.author}` : data.content;
+          const yiyan = data.author ? `${data.content} —— ${data.author}` : data.content;
 
           await new Promise(resolve => setTimeout(resolve, 100));
           
-          const heroTextElement = document.querySelector('.vp-hero-text, .hero-text, [class*="hero"][class*="text"]');
-          if (heroTextElement) {
-            heroTextElement.textContent = yiyanText;
+          const element = document.getElementsByClassName('hero-text')[0];
+          if (element) {
+            element.innerHTML = yiyan;
           }
         } catch (error) {
           console.error("获取一言失败：", error);
