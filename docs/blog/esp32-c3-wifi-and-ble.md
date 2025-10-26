@@ -133,7 +133,7 @@ void setup() {
                         CHARACTERISTIC_UUID,
                         BLECharacteristic::PROPERTY_READ   | // 客户端可以读取数据
                         BLECharacteristic::PROPERTY_WRITE  | // 客户端可以写入数据
-                        BLECharacteristic::PROPERTY_NOTIFY   // 服务器可以接收服务端的通知
+                        BLECharacteristic::PROPERTY_NOTIFY   // 客户端可以接收服务端的通知
                         );
 
     pCharacteristic->setValue("Hello from ESP32C3!"); // 类似 "Hello World!"
