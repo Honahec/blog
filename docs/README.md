@@ -7,7 +7,7 @@ config:
     forceDark: true
     hero:
       name: 云朵角落
-      text: 
+      text: loading...
       tagline: Honahec's Blog
       image: https://image.honahec.cc/avatar-circle.png
       actions:
