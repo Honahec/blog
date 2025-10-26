@@ -63,23 +63,23 @@ jobs:
           key-location: ${{ secrets.INDEXNOW_KEY_LOCATION }}
 
       # 刷新 DogeCloud CDN 缓存
-      - name: Refresh DogeCloud CDN
-        env:
-          DOGE_ACCESS_KEY: ${{ secrets.DOGE_ACCESS_KEY }}
-          DOGE_SECRET_KEY: ${{ secrets.DOGE_SECRET_KEY }}
-        run: |
-          API_PATH="/cdn/refresh/add.json"
-          BODY='rtype=path&urls=["https://blog.honahec.cc/"]'
-          STRING_TO_SIGN=$'/cdn/refresh/add.json\n'"$BODY"
-          SIGN=$(printf "%b" "$STRING_TO_SIGN" | openssl dgst -sha1 -hmac "$DOGE_SECRET_KEY" | awk '{print $NF}')
-          echo "Calculated SIGN: $SIGN"
+      # - name: Refresh DogeCloud CDN
+      #   env:
+      #     DOGE_ACCESS_KEY: ${{ secrets.DOGE_ACCESS_KEY }}
+      #     DOGE_SECRET_KEY: ${{ secrets.DOGE_SECRET_KEY }}
+      #   run: |
+      #     API_PATH="/cdn/refresh/add.json"
+      #     BODY='rtype=path&urls=["https://blog.honahec.cc/"]'
+      #     STRING_TO_SIGN=$'/cdn/refresh/add.json\n'"$BODY"
+      #     SIGN=$(printf "%b" "$STRING_TO_SIGN" | openssl dgst -sha1 -hmac "$DOGE_SECRET_KEY" | awk '{print $NF}')
+      #     echo "Calculated SIGN: $SIGN"
 
-          curl -s -X POST "https://api.dogecloud.com${API_PATH}" \
-            -H "Authorization: TOKEN ${DOGE_ACCESS_KEY}:${SIGN}" \
-            -H "Content-Type: application/x-www-form-urlencoded" \
-            -d "$BODY" \
-            -o response.json
+      #     curl -s -X POST "https://api.dogecloud.com${API_PATH}" \
+      #       -H "Authorization: TOKEN ${DOGE_ACCESS_KEY}:${SIGN}" \
+      #       -H "Content-Type: application/x-www-form-urlencoded" \
+      #       -d "$BODY" \
+      #       -o response.json
 
-          echo "DogeCloud Response:"
-          cat response.json
+      #     echo "DogeCloud Response:"
+      #     cat response.json
 
