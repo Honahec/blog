@@ -5,6 +5,7 @@ permalink: /blog/2xnpkxsp/
 tags:
     - 硬件
     - Arduino 开发
+    - 微信小程序
 ---
 
 > [!NOTE]
