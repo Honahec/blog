@@ -1,5 +1,6 @@
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 import { defineClientConfig, useData } from "vuepress/client";
+import { useRoute } from "vue-router";
 import {
   defineGiscusConfig,
   useGiscusOptions,
@@ -27,12 +28,13 @@ export default defineClientConfig({
     // app.component('Swiper', Swiper) // you should install `swiper`
     // your custom components
     // app.component('CustomComponent', CustomComponent)
-    app.component("Homepage", Homepage);
+    // app.component("Homepage", Homepage);
     app.component("EducationTimeLine", EducationTimeLine);
     app.component("RandomTagline", RandomTagline);
   },
   setup() {
     const { frontmatter } = useData();
+    const route = useRoute();
     const globalGiscusOptions = useGiscusOptions();
     const baseOptions = { ...globalGiscusOptions.value };
 
@@ -48,5 +50,27 @@ export default defineClientConfig({
         };
       })
     );
+
+    // 动态注入一言到 hero text
+    onMounted(async () => {
+      const isHomePage = route.path === "/" || route.path === "/index.html" || frontmatter.value.home === true;
+      
+      if (isHomePage) {
+        try {
+          const response = await fetch("https://api.honahec.cc/yiyan/get/");
+          const data = await response.json();
+          const yiyanText = data.author ? `${data.content} —— ${data.author}` : data.content;
+
+          await new Promise(resolve => setTimeout(resolve, 100));
+          
+          const heroTextElement = document.querySelector('.vp-hero-text, .hero-text, [class*="hero"][class*="text"]');
+          if (heroTextElement) {
+            heroTextElement.textContent = yiyanText;
+          }
+        } catch (error) {
+          console.error("获取一言失败：", error);
+        }
+      }
+    });
   },
 });
