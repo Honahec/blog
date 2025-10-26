@@ -9,7 +9,7 @@ permalink: /blog/lqnikpfi/
 
 > [!INFO]
 >
-> Arduino IDE（Integrated Development Environment）是 Arduino 官方推出的 图形化编程环境，用于 ==编写、编译、上传代码== 到 Arduino 系列或兼容开发板（如 ESP32-C3、ESP8266、STM32 等）。
+> Arduino IDE 是 Arduino 官方推出的图形化编程环境，用于 ==编写、编译、上传代码== 到 Arduino 系列或兼容开发板（如 ESP32-C3、ESP8266、STM32 等）。
 >
 > ESP32-C3 是由 乐鑫（Espressif Systems） 推出的 ==低功耗 Wi-Fi + 蓝牙 SoC== ，是 ESP32 家族的一员，使用 RISC-V 32 位单核 CPU。
 
@@ -27,7 +27,7 @@ ESP32 可使用 WiFi 控制库 `WiFi.h`
 
 首先 ==引入库并设置 WiFi 参数==：
 
-```c
+```cpp
 #include <WiFi.h>
 
 // your basic parameters here.
@@ -39,7 +39,7 @@ const char* password = "12356789";
 
 在初始化函数中为设备连接 WiFi
 
-```c
+```cpp
 void setup() {
     // WiFi
     Serial.begin(9600); //开启监听串口，输出日志以方便调试
@@ -96,7 +96,7 @@ void setup() {
 
 首先仍然是引入库并设置 BLE 参数
 
-```c
+```cpp
 #include <BLEDevice.h>
 #include <BLEUtils.h>
 #include <BLEServer.h>
@@ -121,7 +121,7 @@ BLECharacteristic* pCharacteristic = nullptr; // 代表一个蓝牙特征（类�
 >
 > ==设备(Device) → 包含多个服务(Service) → 每个服务下有多个特征(Characteristic)==
 
-```c
+```cpp
 void setup() {
     // 初始化 BLE
     BLEDevice::init("ESP32C3_BLE"); //初始化蓝牙模块，并为设备设置名称 "ESP32C3_BLE"
@@ -155,3 +155,5 @@ void setup() {
 当然，我们不希望为板子写死一个 WiFi，而希望通过蓝牙为板子配网
 
 我将很快更新如何开发一个微信小程序实现蓝牙配网（这是最简单的适配安卓和 iOS 双平台的开发流程）
+
+update: 已更新 [开发微信小程序为 esp32-c3 板子蓝牙配网实践](./configure-wifi-for-esp32-c3-with-applet.md)
