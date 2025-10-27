@@ -1,4 +1,4 @@
-import { computed, onMounted } from "vue";
+import { computed, onMounted, watch } from "vue";
 import { defineClientConfig, useData } from "vuepress/client";
 import { useRoute } from "vue-router";
 import {
@@ -52,7 +52,7 @@ export default defineClientConfig({
     );
 
     // 动态注入一言到 hero text
-    onMounted(async () => {
+    const updateYiyan = async () => {
       const isHomePage = route.path === "/";
       
       if (isHomePage) {
@@ -71,6 +71,10 @@ export default defineClientConfig({
           console.error("获取一言失败：", error);
         }
       }
-    });
+    };
+
+    onMounted(updateYiyan);
+    
+    watch(() => route.path, updateYiyan);
   },
 });
