@@ -28,7 +28,7 @@ export default defineClientConfig({
     // app.component('Swiper', Swiper) // you should install `swiper`
     // your custom components
     // app.component('CustomComponent', CustomComponent)
-    // app.component("Homepage", Homepage);
+    app.component("Homepage", Homepage);
     app.component("EducationTimeLine", EducationTimeLine);
     app.component("RandomTagline", RandomTagline);
   },
@@ -52,29 +52,29 @@ export default defineClientConfig({
     );
 
     // 动态注入一言到 hero text
-    const updateYiyan = async () => {
-      const isHomePage = route.path === "/";
+    // const updateYiyan = async () => {
+    //   const isHomePage = route.path === "/";
       
-      if (isHomePage) {
-        try {
-          const response = await fetch("https://api.honahec.cc/yiyan/get/");
-          const data = await response.json();
-          const yiyan = data.author ? `${data.content} —— ${data.author}` : data.content;
+    //   if (isHomePage) {
+    //     try {
+    //       const response = await fetch("https://api.honahec.cc/yiyan/get/");
+    //       const data = await response.json();
+    //       const yiyan = data.author ? `${data.content} —— ${data.author}` : data.content;
 
-          await new Promise(resolve => setTimeout(resolve, 100));
+    //       await new Promise(resolve => setTimeout(resolve, 100));
           
-          const element = document.getElementsByClassName('hero-text')[0];
-          if (element) {
-            element.innerHTML = yiyan;
-          }
-        } catch (error) {
-          console.error("获取一言失败：", error);
-        }
-      }
-    };
+    //       const element = document.getElementsByClassName('hero-text')[0];
+    //       if (element) {
+    //         element.innerHTML = yiyan;
+    //       }
+    //     } catch (error) {
+    //       console.error("获取一言失败：", error);
+    //     }
+    //   }
+    // };
 
-    onMounted(updateYiyan);
+    // onMounted(updateYiyan);
     
-    watch(() => route.path, updateYiyan);
+    // watch(() => route.path, updateYiyan);
   },
 });

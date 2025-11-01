@@ -1,14 +1,12 @@
 ---
 home: true
 config:
-  - type: hero
+  - type: Homepage
     full: true
-    effect: hyper-speed
-    forceDark: true
     hero:
       name: 云朵角落
-      text: loading...
-      tagline: Honahec's Blog
+      text: Honahec's Blog
+      # tagline: Honahec's Blog
       image: https://image.honahec.cc/avatar-circle.png
       actions:
         - theme: brand
@@ -17,4 +15,7 @@ config:
         - theme: alt
           text: Github
           link: https://github.com/Honahec
+
+  - type: blog
+    full: true
 ---
