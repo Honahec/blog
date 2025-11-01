@@ -205,6 +205,7 @@ export default defineUserConfig({
       mapping: "pathname",
       reactionsEnabled: true,
       inputPosition: "top",
+      lazyLoading: false,
     },
 
     /**
