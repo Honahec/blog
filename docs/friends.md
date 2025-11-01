@@ -34,6 +34,7 @@ giscus: 2
 copyright: false
 readingTime: false
 changelog: false
+externalLinkIcon: false
 ---
 
 <script setup>
