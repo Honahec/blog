@@ -7,10 +7,10 @@
 import { defineNavbarConfig } from "vuepress-theme-plume";
 
 export default defineNavbarConfig([
-  { text: "首页", link: "/" },
-  { text: "关于我", link: "/about/" },
-  { text: "博客", link: "/blog/" },
-  { text: "标签", link: "/blog/tags/" },
-  { text: "友链", link: "/friends/" },
+  { text: "首页", link: "/", icon: "fe:home" },
+  { text: "关于我", link: "/about/", icon: "fe:info" },
+  { text: "博客", link: "/blog/", icon: "fe:document" },
+  { text: "标签", link: "/blog/tags/", icon: "fe:tag" },
+  { text: "友链", link: "/friends/", icon: "fe:users" },
   { text: "我的主页", link: "https://honahec.cc/"}
 ]);
