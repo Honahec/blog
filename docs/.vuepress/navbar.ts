@@ -4,13 +4,24 @@
  * Navbar 配置文件，它在 `.vuepress/plume.config.ts` 中被导入。
  */
 
-import { defineNavbarConfig } from "vuepress-theme-plume";
+import { defineNavbarConfig } from 'vuepress-theme-plume';
 
 export default defineNavbarConfig([
-  { text: "首页", link: "/", icon: "fe:home" },
-  { text: "关于我", link: "/about/", icon: "fe:info" },
-  { text: "博客", link: "/blog/", icon: "fe:document" },
-  { text: "标签", link: "/blog/tags/", icon: "fe:tag" },
-  { text: "友链", link: "/friends/", icon: "fe:users" },
-  { text: "我的主页", link: "https://honahec.cc/"}
+  { text: '首页', link: '/', icon: 'fe:home' },
+  { text: '关于我', link: '/about/', icon: 'fe:info' },
+  { text: '博客', link: '/blog/', icon: 'fe:document' },
+  { text: '标签', link: '/blog/tags/', icon: 'fe:tag' },
+  { text: '友链', link: '/friends/', icon: 'fe:users' },
+  {
+    text: '工具',
+    items: [
+      {
+        text: '共享剪切板',
+        link: 'https://clip.honahec.cc/',
+        icon: 'fluent:clipboard-12-regular',
+      },
+    ],
+    icon: 'mingcute:tool-line',
+  },
+  { text: '我的主页', link: 'https://honahec.cc/' },
 ]);
