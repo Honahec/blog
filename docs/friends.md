@@ -35,6 +35,7 @@ copyright: false
 readingTime: false
 changelog: false
 externalLinkIcon: false
+aside: false
 ---
 
 <script setup>
