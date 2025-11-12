@@ -9,20 +9,20 @@
  * 特别的，请不要在两个配置文件中重复配置相同的项，当前文件的配置项会被覆盖
  */
 
-import { viteBundler } from "@vuepress/bundler-vite";
-import { defineUserConfig } from "vuepress";
-import { plumeTheme } from "vuepress-theme-plume";
-import { googleAnalyticsPlugin } from "@vuepress/plugin-google-analytics";
+import { viteBundler } from '@vuepress/bundler-vite';
+import { defineUserConfig } from 'vuepress';
+import { plumeTheme } from 'vuepress-theme-plume';
+import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics';
 
 export default defineUserConfig({
-  base: "/",
-  lang: "zh-CN",
-  title: "云朵角落",
+  base: '/',
+  lang: 'zh-CN',
+  title: '云朵角落',
   description: "Honahec's Blog",
 
   plugins: [
     {
-      name: "local-giscus-frontmatter",
+      name: 'local-giscus-frontmatter',
       extendsPage(page) {
         const frontmatter = page.frontmatter ?? {};
 
@@ -39,12 +39,12 @@ export default defineUserConfig({
         }
 
         if (
-          (typeof giscus === "number" && Number.isFinite(giscus)) ||
-          (typeof giscus === "string" && giscus.trim() !== "")
+          (typeof giscus === 'number' && Number.isFinite(giscus)) ||
+          (typeof giscus === 'string' && giscus.trim() !== '')
         ) {
           frontmatter.comment = true;
           frontmatter.commentID = String(giscus);
-          (frontmatter as Record<string, unknown>).commentMapping = "number";
+          (frontmatter as Record<string, unknown>).commentMapping = 'number';
         } else {
           delete frontmatter.commentID;
           delete (frontmatter as Record<string, unknown>).commentMapping;
@@ -53,18 +53,18 @@ export default defineUserConfig({
     },
 
     googleAnalyticsPlugin({
-      id: "G-PFTKJHMXTJ",
+      id: 'G-PFTKJHMXTJ',
     }),
   ],
 
   head: [
     // 配置站点图标
     [
-      "link",
+      'link',
       {
-        rel: "icon",
-        type: "image/png",
-        href: "https://image.honahec.cc/favicon-blue.png",
+        rel: 'icon',
+        type: 'image/png',
+        href: 'https://image.honahec.cc/favicon-blue.png',
       },
     ],
   ],
@@ -74,19 +74,19 @@ export default defineUserConfig({
 
   theme: plumeTheme({
     /* 添加您的部署域名, 有助于 SEO, 生成 sitemap */
-    hostname: "https://blog.honahec.cc",
+    hostname: 'https://blog.honahec.cc',
 
     /* 文档仓库配置，用于 editLink */
-    docsRepo: "Honahec/blog",
-    docsDir: "docs",
-    docsBranch: "main",
+    docsRepo: 'Honahec/blog',
+    docsDir: 'docs',
+    docsBranch: 'main',
 
     /* 页内信息 */
     editLink: true,
     lastUpdated: {
       formatOptions: {
-        dateStyle: "short",
-        timeStyle: "short",
+        dateStyle: 'short',
+        timeStyle: 'short',
       },
     },
     contributors: false,
@@ -96,7 +96,7 @@ export default defineUserConfig({
      * 编译缓存，加快编译速度
      * @see https://theme-plume.vuejs.press/config/basic/#cache
      */
-    cache: "filesystem",
+    cache: 'filesystem',
 
     /**
      * 为 markdown 文件自动添加 frontmatter 配置
@@ -117,10 +117,10 @@ export default defineUserConfig({
      * @see https://theme-plume.vuejs.press/config/plugins/search/#algolia-docsearch
      */
     search: {
-      provider: "algolia",
-      appId: "5SPFQCFEYA",
-      apiKey: "c5256d53d6dc7178f6470e2491cc765a",
-      indices: ["Blog"],
+      provider: 'algolia',
+      appId: '5SPFQCFEYA',
+      apiKey: 'c5256d53d6dc7178f6470e2491cc765a',
+      indices: ['Blog'],
     },
 
     /**
@@ -142,7 +142,7 @@ export default defineUserConfig({
      */
     markdown: {
       abbr: true, // 启用 abbr 语法  *[label]: content
-      mark: "lazy",
+      mark: 'lazy',
       annotation: true, // 启用 annotation 语法  [+label]: content
       pdf: true, // 启用 PDF 嵌入 @[pdf](/xxx.pdf)
       caniuse: true, // 启用 caniuse 语法  @[caniuse](feature_name)
@@ -151,7 +151,7 @@ export default defineUserConfig({
       youtube: true, // 启用嵌入 youtube视频 语法 @[youtube](video_id)
       artPlayer: true, // 启用嵌入 artPlayer 本地视频 语法 @[artPlayer](url)
       audioReader: true, // 启用嵌入音频朗读功能 语法 @[audioReader](url)
-      icon: { provider: "iconify" }, // 启用内置图标语法  ::icon-name::
+      icon: { provider: 'iconify' }, // 启用内置图标语法  ::icon-name::
       table: true, // 启用表格增强容器语法 ::: table
       codepen: true, // 启用嵌入 codepen 语法 @[codepen](user/slash)
       replit: true, // 启用嵌入 replit 语法 @[replit](user/repl-name)
@@ -168,7 +168,7 @@ export default defineUserConfig({
       },
       math: {
         // 启用数学公式
-        type: "katex",
+        type: 'katex',
       },
       chartjs: true, // 启用 chart.js
       echarts: true, // 启用 ECharts
@@ -181,7 +181,7 @@ export default defineUserConfig({
         size: true, // 启用图片大小
       },
       // include: true, // 在 Markdown 文件中导入其他 markdown 文件内容
-      imageSize: "local", // 启用 自动填充 图片宽高属性，避免页面抖动
+      imageSize: 'local', // 启用 自动填充 图片宽高属性，避免页面抖动
       collapse: true, // 启用 折叠面板 语法 ::: collapse
     },
 
@@ -196,15 +196,15 @@ export default defineUserConfig({
      * @see https://theme-plume.vuejs.press/guide/features/comments/
      */
     comment: {
-      provider: "Giscus", // "Artalk" | "Giscus" | "Twikoo" | "Waline"
+      provider: 'Giscus', // "Artalk" | "Giscus" | "Twikoo" | "Waline"
       comment: true,
-      repo: "Honahec/blog",
-      repoId: "R_kgDONJemfQ",
-      category: "General",
-      categoryId: "DIC_kwDONJemfc4Cj7pY",
-      mapping: "pathname",
+      repo: 'Honahec/blog',
+      repoId: 'R_kgDONJemfQ',
+      category: 'General',
+      categoryId: 'DIC_kwDONJemfc4Cj7pY',
+      mapping: 'pathname',
       reactionsEnabled: true,
-      inputPosition: "top",
+      inputPosition: 'top',
       lazyLoading: false,
     },
 

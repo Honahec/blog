@@ -32,7 +32,7 @@
   },
   "dependencies": {
     "@vuepress/plugin-google-analytics": "2.0.0-rc.114",
-    "@vuepress/shiki-twoslash": "2.0.0-rc.115",
+    "@vuepress/shiki-twoslash": "2.0.0-rc.118",
     "artplayer": "^5.3.0",
     "chart.js": "^4.5.1",
     "echarts": "^6.0.0",
@@ -41,6 +41,6 @@
     "postprocessing": "^6.38.0",
     "pyodide": "^0.29.0",
     "sass-embedded": "^1.93.3",
-    "three": "^0.180.0"
+    "three": "^0.181.1"
   }
 }
