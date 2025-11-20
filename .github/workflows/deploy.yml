@@ -41,6 +41,7 @@ jobs:
           > docs/.vuepress/dist/.nojekyll
           echo "blog.honahec.cc" > docs/.vuepress/dist/CNAME
           echo ${{ secrets.INDEXNOW_KEY }} > docs/.vuepress/dist/${{ secrets.INDEXNOW_KEY }}.txt
+          echo "6de7380c576500672410685b52a7a56e6ca03052" > docs/.vuepress/dist/64885c3dff900b813985bff340900eab.txt
 
       - name: 部署文档
         uses: JamesIves/github-pages-deploy-action@v4
@@ -55,10 +56,10 @@ jobs:
       - name: submit-to-bing
         uses: bojieyang/indexnow-action@v2
         with:
-          sitemap-location: "https://blog.honahec.cc/sitemap.xml"
-          endpoint: "www.bing.com"
+          sitemap-location: 'https://blog.honahec.cc/sitemap.xml'
+          endpoint: 'www.bing.com'
           since: 30
-          since-unit: "day"
+          since-unit: 'day'
           key: ${{ secrets.INDEXNOW_KEY }}
           key-location: ${{ secrets.INDEXNOW_KEY_LOCATION }}
 
@@ -82,4 +83,3 @@ jobs:
 
       #     echo "DogeCloud Response:"
       #     cat response.json
-
