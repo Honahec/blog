@@ -15,9 +15,9 @@ groups:
         desc: 喜欢钻研各种新奇的东西
         link: https://modenc.top
       - name: 异想之旅
-        avatar: https://blog.yxzl.dev/head.png
+        avatar: https://yxzl.dev/head.png
         desc: 异想之旅のBlog
-        link: https://blog.yxzl.dev/
+        link: https://yxzl.dev/
       - name: Iron_Grey_
         avatar: https://irongrey.top/headphoto.png
         desc: Iron_Grey_的首页
