@@ -33,6 +33,22 @@ jobs:
           corepack enable
           pnpm install --frozen-lockfile
 
+      - name: 恢复翻译缓存
+        uses: actions/cache@v4
+        with:
+          path: |
+            .cache/translation-cache.json
+            docs/en
+          key: translation-cache-${{ hashFiles('docs/**/*.md', '!docs/en/**') }}
+          restore-keys: |
+            translation-cache-
+
+      - name: 翻译文档
+        env:
+          CLAUDE_BASE_URL: ${{ secrets.CLAUDE_BASE_URL }}
+          CLAUDE_API_KEY: ${{ secrets.CLAUDE_API_KEY }}
+        run: pnpm translate
+
       - name: 构建文档
         env:
           NODE_OPTIONS: --max_old_space_size=8192

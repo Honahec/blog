@@ -16,9 +16,19 @@ import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics';
 
 export default defineUserConfig({
   base: '/',
-  lang: 'zh-CN',
-  title: '云朵角落',
-  description: "Honahec's Blog",
+
+  locales: {
+    '/': {
+      lang: 'zh-CN',
+      title: '云朵角落',
+      description: "Honahec's Blog",
+    },
+    '/en/': {
+      lang: 'en-US',
+      title: 'Cloud Corner',
+      description: "Honahec's Blog",
+    },
+  },
 
   plugins: [
     {

@@ -6,3 +6,9 @@ docs/.vuepress/dist
 
 .DS_Store
 *.log
+
+# Environment variables
+.env
+
+# Translation cache
+.cache/

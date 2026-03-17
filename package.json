@@ -20,11 +20,14 @@
     "docs:dev-clean": "vuepress dev docs --clean-cache --clean-temp",
     "docs:build": "vuepress build docs --clean-cache --clean-temp",
     "docs:preview": "http-server docs/.vuepress/dist",
-    "vp-update": "pnpm dlx vp-update"
+    "vp-update": "pnpm dlx vp-update",
+    "translate": "tsx scripts/translate.ts"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.32.1",
     "@vuepress/bundler-vite": "2.0.0-rc.26",
     "http-server": "^14.1.1",
+    "tsx": "^4.19.2",
     "typescript": "^5.9.3",
     "vue": "^3.5.24",
     "vuepress": "2.0.0-rc.26",

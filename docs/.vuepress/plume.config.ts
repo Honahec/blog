@@ -12,6 +12,7 @@
 
 import { defineThemeConfig } from "vuepress-theme-plume";
 import navbar from "./navbar";
+import navbarEn from "./navbar.en";
 import collections from "./collections";
 
 /**
@@ -41,26 +42,51 @@ export default defineThemeConfig({
   nextPage: false, // 是否启用下一页链接
   createTime: true, // 是否显示文章创建时间
 
-  /* 站点页脚 */
-  footer: {
-    message: `<a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2024119517号-1</a>`,
-    copyright: `Copyright © 2021-${new Date().getFullYear()} Honahec | <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>`,
-  },
+  locales: {
+    '/': {
+      /* 站点页脚 */
+      footer: {
+        message: `<a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2024119517号-1</a>`,
+        copyright: `Copyright © 2021-${new Date().getFullYear()} Honahec | <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>`,
+      },
 
-  /**
-   * @see https://theme-plume.vuejs.press/config/basic/#profile
-   */
-  profile: {
-    avatar: "https://image.honahec.cc/avatar.png",
-    name: "云朵角落",
-    description: "Honahec's Blog",
-    circle: true,
-    location: "Shanghai, China",
-    organization: "ShanghaiTech University",
-  },
+      /**
+       * @see https://theme-plume.vuejs.press/config/basic/#profile
+       */
+      profile: {
+        avatar: "https://image.honahec.cc/avatar.png",
+        name: "云朵角落",
+        description: "Honahec's Blog",
+        circle: true,
+        location: "Shanghai, China",
+        organization: "ShanghaiTech University",
+      },
 
-  navbar,
-  collections,
+      navbar,
+      collections,
+    },
+    '/en/': {
+      /* 站点页脚 */
+      footer: {
+        message: `<a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2024119517号-1</a>`,
+        copyright: `Copyright © 2021-${new Date().getFullYear()} Honahec | <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>`,
+      },
+
+      /**
+       * @see https://theme-plume.vuejs.press/config/basic/#profile
+       */
+      profile: {
+        avatar: "https://image.honahec.cc/avatar.png",
+        name: "Cloud Corner",
+        description: "Honahec's Blog",
+        circle: true,
+        location: "Shanghai, China",
+        organization: "ShanghaiTech University",
+      },
+
+      navbar: navbarEn,
+    },
+  },
 
   /**
    * 公告板
