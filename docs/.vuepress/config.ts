@@ -35,12 +35,10 @@ export default defineUserConfig({
       name: 'local-giscus-frontmatter',
       extendsPage(page) {
         const frontmatter = page.frontmatter ?? {};
+        const normalizeSharedPath = (path: string): string =>
+          path === '/en/' ? '/' : path.slice(3);
 
         const giscus = frontmatter.giscus;
-        if (giscus === undefined) {
-          return;
-        }
-
         if (giscus === false) {
           frontmatter.comment = false;
           delete frontmatter.commentID;
@@ -55,10 +53,37 @@ export default defineUserConfig({
           frontmatter.comment = true;
           frontmatter.commentID = String(giscus);
           (frontmatter as Record<string, unknown>).commentMapping = 'number';
-        } else {
+          return;
+        }
+
+        if (giscus !== undefined) {
           delete frontmatter.commentID;
           delete (frontmatter as Record<string, unknown>).commentMapping;
+          return;
         }
+
+        const permalink = String(frontmatter.permalink ?? page.path ?? '');
+        const isEnglishPage = permalink.startsWith('/en/');
+
+        if (!isEnglishPage) {
+          return;
+        }
+
+        if (frontmatter.comment === false) {
+          return;
+        }
+
+        // Respect explicit per-page settings when present.
+        if (
+          frontmatter.commentID !== undefined ||
+          frontmatter.commentMapping !== undefined
+        ) {
+          return;
+        }
+
+        frontmatter.comment = true;
+        frontmatter.commentID = normalizeSharedPath(permalink);
+        (frontmatter as Record<string, unknown>).commentMapping = 'specific';
       },
     },
 
