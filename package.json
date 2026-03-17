@@ -26,24 +26,25 @@
   "devDependencies": {
     "@anthropic-ai/sdk": "^0.32.1",
     "@vuepress/bundler-vite": "2.0.0-rc.26",
+    "dotenv": "^17.3.1",
     "http-server": "^14.1.1",
-    "tsx": "^4.19.2",
+    "tsx": "^4.21.0",
     "typescript": "^5.9.3",
-    "vue": "^3.5.24",
+    "vue": "^3.5.30",
     "vuepress": "2.0.0-rc.26",
-    "vuepress-theme-plume": "1.0.0-rc.176"
+    "vuepress-theme-plume": "1.0.0-rc.192"
   },
   "dependencies": {
-    "@vuepress/plugin-google-analytics": "2.0.0-rc.114",
-    "@vuepress/shiki-twoslash": "2.0.0-rc.118",
-    "artplayer": "^5.3.0",
+    "@vuepress/plugin-google-analytics": "2.0.0-rc.125",
+    "@vuepress/shiki-twoslash": "2.0.0-rc.123",
+    "artplayer": "^5.4.0",
     "chart.js": "^4.5.1",
     "echarts": "^6.0.0",
     "flowchart.ts": "^3.0.1",
-    "mermaid": "^11.12.1",
-    "postprocessing": "^6.38.0",
-    "pyodide": "^0.29.0",
-    "sass-embedded": "^1.93.3",
-    "three": "^0.181.1"
+    "mermaid": "^11.13.0",
+    "postprocessing": "^6.38.3",
+    "pyodide": "^0.29.3",
+    "sass-embedded": "^1.98.0",
+    "three": "^0.181.2"
   }
 }

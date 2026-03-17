@@ -14,6 +14,7 @@ import { defineThemeConfig } from "vuepress-theme-plume";
 import navbar from "./navbar";
 import navbarEn from "./navbar.en";
 import collections from "./collections";
+import collectionsEn from "./collections.en";
 
 /**
  * @see https://theme-plume.vuejs.press/config/basic/
@@ -85,6 +86,7 @@ export default defineThemeConfig({
       },
 
       navbar: navbarEn,
+      collections: collectionsEn,
     },
   },
 
