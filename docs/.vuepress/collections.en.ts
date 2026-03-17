@@ -2,7 +2,7 @@ import { defineCollection, defineCollections } from 'vuepress-theme-plume';
 
 const blog = defineCollection({
   type: 'post',
-  dir: 'en/blog',
+  dir: 'blog',
   title: 'Blog',
   link: '/en/blog/',
   tags: true,

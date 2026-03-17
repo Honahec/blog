@@ -201,7 +201,7 @@ class BlogTranslator {
     if (chunkIndex === 0 && translated.includes('permalink:')) {
       return translated.replace(
         /permalink:\s*(\/(?!en\/)[^\n]+)/,
-        (_match, path) => `permalink: /en${path}`
+        (_match, path) => `permalink: /en${path}`,
       );
     }
 
@@ -323,7 +323,7 @@ CRITICAL REQUIREMENTS:
 1. You MUST translate the ENTIRE document from start to finish
 2. You MUST include ALL code blocks exactly as they appear (do not modify or omit any but translate comments inside code blocks if they are in Chinese)
 3. You MUST preserve ALL markdown structure (headers, lists, links, etc.)
-4. Keep ALL frontmatter (YAML between ---) UNCHANGED, but translate Chinese content inside
+4. Keep ALL frontmatter (YAML between ---) UNCHANGED, but translate Chinese content inside, including the title, tags, etc.
 5. Keep ALL URLs and links UNCHANGED
 6. Translate only the main content text
 7. Keep technical terms accurate

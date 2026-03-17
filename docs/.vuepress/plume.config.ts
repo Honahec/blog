@@ -10,26 +10,26 @@
  * 特别的，请不要在两个配置文件中重复配置相同的项，当前文件的配置项会覆盖 `.vuepress/config.ts` 文件中的配置
  */
 
-import { defineThemeConfig } from "vuepress-theme-plume";
-import navbar from "./navbar";
-import navbarEn from "./navbar.en";
-import collections from "./collections";
-import collectionsEn from "./collections.en";
+import { defineThemeConfig } from 'vuepress-theme-plume';
+import navbar from './navbar';
+import navbarEn from './navbar.en';
+import collections from './collections';
+import collectionsEn from './collections.en';
 
 /**
  * @see https://theme-plume.vuejs.press/config/basic/
  */
 export default defineThemeConfig({
-  logo: "https://image.honahec.cc/favicon-blue.png", // 站点 Logo
+  logo: 'https://image.honahec.cc/favicon-blue.png', // 站点 Logo
 
   appearance: true, // 配置 深色模式
 
   social: [
-    { icon: "github", link: "https://github.com/Honahec" },
-    { icon: "telegram", link: "https://t.me/Honahec" },
-    { icon: "bilibili", link: "https://space.bilibili.com/299797909" },
+    { icon: 'github', link: 'https://github.com/Honahec' },
+    { icon: 'telegram', link: 'https://t.me/Honahec' },
+    { icon: 'bilibili', link: 'https://space.bilibili.com/299797909' },
   ], // 侧边栏 social 社交链接
-  navbarSocialInclude: ["github"], // 允许显示在导航栏的 social 社交链接
+  navbarSocialInclude: ['github'], // 允许显示在导航栏的 social 社交链接
   aside: true, // 页内侧边栏， 默认显示在右侧
   outline: [2, 3], // 页内大纲， 默认显示 h2, h3
 
@@ -37,7 +37,7 @@ export default defineThemeConfig({
    * 文章版权信息
    * @see https://theme-plume.vuejs.press/guide/features/copyright/
    */
-  copyright: "CC-BY-NC-SA-4.0",
+  copyright: 'CC-BY-NC-SA-4.0',
 
   prevPage: false, // 是否启用上一页链接
   nextPage: false, // 是否启用下一页链接
@@ -55,12 +55,12 @@ export default defineThemeConfig({
        * @see https://theme-plume.vuejs.press/config/basic/#profile
        */
       profile: {
-        avatar: "https://image.honahec.cc/avatar.png",
-        name: "云朵角落",
+        avatar: 'https://image.honahec.cc/avatar.png',
+        name: '云朵角落',
         description: "Honahec's Blog",
         circle: true,
-        location: "Shanghai, China",
-        organization: "ShanghaiTech University",
+        location: 'Shanghai, China',
+        organization: 'ShanghaiTech University',
       },
 
       navbar,
@@ -69,7 +69,6 @@ export default defineThemeConfig({
     '/en/': {
       /* 站点页脚 */
       footer: {
-        message: `<a href="https://beian.miit.gov.cn/" target="_blank">鲁ICP备2024119517号-1</a>`,
         copyright: `Copyright © 2021-${new Date().getFullYear()} Honahec | <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>`,
       },
 
@@ -77,12 +76,12 @@ export default defineThemeConfig({
        * @see https://theme-plume.vuejs.press/config/basic/#profile
        */
       profile: {
-        avatar: "https://image.honahec.cc/avatar.png",
-        name: "Cloud Corner",
+        avatar: 'https://image.honahec.cc/avatar.png',
+        name: 'Cloud Corner',
         description: "Honahec's Blog",
         circle: true,
-        location: "Shanghai, China",
-        organization: "ShanghaiTech University",
+        location: 'Shanghai, China',
+        organization: 'ShanghaiTech University',
       },
 
       navbar: navbarEn,
