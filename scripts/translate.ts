@@ -67,14 +67,29 @@ class BlogTranslator {
     return crypto.createHash('md5').update(content).digest('hex');
   }
 
-  private async callClaudeAPI(content: string): Promise<string> {
-    const message = await this.client.messages.create({
-      model: this.config.model!,
-      max_tokens: 8000,
-      messages: [
-        {
-          role: 'user',
-          content: `Please translate the following Chinese markdown document to English.
+  private async callClaudeAPI(
+    content: string,
+    retries = 3,
+    timeout = 60000,
+  ): Promise<string> {
+    for (let attempt = 1; attempt <= retries; attempt++) {
+      try {
+        console.log(
+          `    Attempt ${attempt}/${retries}${attempt > 1 ? ' (retry)' : ''}`,
+        );
+
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), timeout);
+
+        try {
+          const message = await this.client.messages.create(
+            {
+              model: this.config.model!,
+              max_tokens: 8000,
+              messages: [
+                {
+                  role: 'user',
+                  content: `Please translate the following Chinese markdown document to English.
 
 IMPORTANT RULES:
 1. Keep ALL frontmatter (YAML between ---) UNCHANGED, but translate the content inside if it's in Chinese. If the frontmatter contains non-Chinese text, keep it as is.
@@ -90,11 +105,49 @@ IMPORTANT RULES:
 Here's the document:
 
 ${content}`,
-        },
-      ],
-    });
+                },
+              ],
+            },
+            {
+              signal: controller.signal as AbortSignal,
+            },
+          );
 
-    return message.content[0].type === 'text' ? message.content[0].text : '';
+          clearTimeout(timeoutId);
+          return message.content[0].type === 'text'
+            ? message.content[0].text
+            : '';
+        } catch (error) {
+          clearTimeout(timeoutId);
+          throw error;
+        }
+      } catch (error: any) {
+        const isLastAttempt = attempt === retries;
+
+        if (error.name === 'AbortError') {
+          console.log(`Timeout after ${timeout / 1000}s`);
+        } else if (error.status === 429) {
+          console.log(`Rate limit hit`);
+        } else if (error.status >= 500) {
+          console.log(`Server error: ${error.status}`);
+        } else {
+          console.log(`Error: ${error.message}`);
+        }
+
+        if (isLastAttempt) {
+          throw new Error(
+            `Translation failed after ${retries} attempts: ${error.message}`,
+          );
+        }
+
+        // Exponential backoff: 2s, 4s, 8s...
+        const delay = Math.min(2000 * Math.pow(2, attempt - 1), 10000);
+        console.log(`Waiting ${delay / 1000}s before retry...`);
+        await new Promise((resolve) => setTimeout(resolve, delay));
+      }
+    }
+
+    throw new Error('Translation failed: max retries exceeded');
   }
 
   private needsTranslation(filePath: string, content: string): boolean {
@@ -112,7 +165,7 @@ ${content}`,
     const relativePath = path.relative(this.config.sourceDir, sourceFile);
     const targetFile = path.join(this.config.targetDir, relativePath);
 
-    console.log(`Processing: ${relativePath}`);
+    console.log(`\nProcessing: ${relativePath}`);
 
     const content = fs.readFileSync(sourceFile, 'utf-8');
 
@@ -135,10 +188,13 @@ ${content}`,
         timestamp: Date.now(),
       };
 
+      // Save cache after each successful translation
+      this.saveCache();
+
       console.log(`  ✓ Translated successfully`);
-    } catch (error) {
-      console.error(`  ✗ Translation failed:`, error);
-      throw error;
+    } catch (error: any) {
+      console.error(`  ✗ Translation failed: ${error.message}`);
+      // Don't throw, continue with next file
     }
   }
 
