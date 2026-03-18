@@ -16,29 +16,21 @@ import { googleAnalyticsPlugin } from '@vuepress/plugin-google-analytics';
 
 export default defineUserConfig({
   base: '/',
-
-  locales: {
-    '/': {
-      lang: 'zh-CN',
-      title: '云朵角落',
-      description: "Honahec's Blog",
-    },
-    '/en/': {
-      lang: 'en-US',
-      title: 'Cloud Corner',
-      description: "Honahec's Blog",
-    },
-  },
+  lang: 'zh-CN',
+  title: '云朵角落',
+  description: "Honahec's Blog",
 
   plugins: [
     {
       name: 'local-giscus-frontmatter',
       extendsPage(page) {
         const frontmatter = page.frontmatter ?? {};
-        const normalizeSharedPath = (path: string): string =>
-          path === '/en/' ? '/' : path.slice(3);
 
         const giscus = frontmatter.giscus;
+        if (giscus === undefined) {
+          return;
+        }
+
         if (giscus === false) {
           frontmatter.comment = false;
           delete frontmatter.commentID;
@@ -53,37 +45,10 @@ export default defineUserConfig({
           frontmatter.comment = true;
           frontmatter.commentID = String(giscus);
           (frontmatter as Record<string, unknown>).commentMapping = 'number';
-          return;
-        }
-
-        if (giscus !== undefined) {
+        } else {
           delete frontmatter.commentID;
           delete (frontmatter as Record<string, unknown>).commentMapping;
-          return;
         }
-
-        const permalink = String(frontmatter.permalink ?? page.path ?? '');
-        const isEnglishPage = permalink.startsWith('/en/');
-
-        if (!isEnglishPage) {
-          return;
-        }
-
-        if (frontmatter.comment === false) {
-          return;
-        }
-
-        // Respect explicit per-page settings when present.
-        if (
-          frontmatter.commentID !== undefined ||
-          frontmatter.commentMapping !== undefined
-        ) {
-          return;
-        }
-
-        frontmatter.comment = true;
-        frontmatter.commentID = normalizeSharedPath(permalink);
-        (frontmatter as Record<string, unknown>).commentMapping = 'specific';
       },
     },
 
@@ -131,7 +96,7 @@ export default defineUserConfig({
      * 编译缓存，加快编译速度
      * @see https://theme-plume.vuejs.press/config/basic/#cache
      */
-    // cache: 'filesystem',
+    cache: 'filesystem',
 
     /**
      * 为 markdown 文件自动添加 frontmatter 配置
