@@ -23,24 +23,24 @@
     "vp-update": "pnpm dlx vp-update"
   },
   "devDependencies": {
-    "@vuepress/bundler-vite": "2.0.0-rc.26",
+    "@vuepress/bundler-vite": "2.0.0-rc.28",
     "http-server": "^14.1.1",
     "typescript": "^5.9.3",
-    "vue": "^3.5.30",
-    "vuepress": "2.0.0-rc.26",
-    "vuepress-theme-plume": "1.0.0-rc.192"
+    "vue": "^3.5.34",
+    "vuepress": "2.0.0-rc.28",
+    "vuepress-theme-plume": "1.0.0-rc.200"
   },
   "dependencies": {
-    "@vuepress/plugin-google-analytics": "2.0.0-rc.125",
-    "@vuepress/shiki-twoslash": "2.0.0-rc.123",
+    "@vuepress/plugin-google-analytics": "2.0.0-rc.128",
+    "@vuepress/shiki-twoslash": "2.0.0-rc.128",
     "artplayer": "^5.4.0",
     "chart.js": "^4.5.1",
     "echarts": "^6.0.0",
     "flowchart.ts": "^3.0.1",
-    "mermaid": "^11.13.0",
-    "postprocessing": "^6.38.3",
-    "pyodide": "^0.29.3",
-    "sass-embedded": "^1.98.0",
-    "three": "^0.181.2"
+    "mermaid": "^11.15.0",
+    "postprocessing": "^6.39.1",
+    "pyodide": "^0.29.4",
+    "sass-embedded": "^1.99.0",
+    "three": "^0.184.0"
   }
 }
