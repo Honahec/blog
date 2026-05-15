@@ -8,13 +8,13 @@
   Modified by Honahec, 2025  
 */
 
-import { computed, onBeforeUnmount, onMounted, ref } from "vue";
-import { RouterLink } from "vue-router";
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
+import { RouterLink } from 'vue-router';
 
 type HeroAction = {
   text: string;
   link?: string;
-  theme?: "brand" | "alt" | "ghost" | "outline" | string;
+  theme?: 'brand' | 'alt' | 'ghost' | 'outline' | string;
 };
 
 type HeroConfig = {
@@ -32,7 +32,7 @@ const props = defineProps<{
 const hero = computed(() => props.hero ?? null);
 
 const isExternalLink = (link?: string) =>
-  typeof link === "string" && /^(https?:)?\/\//.test(link);
+  typeof link === 'string' && /^(https?:)?\/\//.test(link);
 
 const DEFAULT_NAV_HEIGHT = 56;
 
@@ -45,11 +45,11 @@ const showScrollIndicator = ref(true);
 const scrollIndicatorHideThreshold = ref(DEFAULT_NAV_HEIGHT * 1.6);
 const scrollIndicatorShowThreshold = ref(DEFAULT_NAV_HEIGHT * 0.7);
 const TRANSFORM_PROPS = [
-  "transform",
-  "-webkit-transform",
-  "-moz-transform",
-  "-ms-transform",
-  "-o-transform",
+  'transform',
+  '-webkit-transform',
+  '-moz-transform',
+  '-ms-transform',
+  '-o-transform',
 ] as const;
 
 const applyParallax = () => {
@@ -60,14 +60,14 @@ const applyParallax = () => {
   const topDistance = Math.min(window.pageYOffset || 0, heroHeight.value);
 
   layers.value.forEach((layer) => {
-    const depth = Number.parseFloat(layer.dataset.depth ?? "0");
+    const depth = Number.parseFloat(layer.dataset.depth ?? '0');
     const movement = Number.isFinite(depth) ? -(topDistance * depth) : 0;
     const translate3d = `translate3d(0, ${movement}px, 0)`;
 
     TRANSFORM_PROPS.forEach((prop) => {
       layer.style.setProperty(prop, translate3d);
     });
-    layer.style.willChange = "transform";
+    layer.style.willChange = 'transform';
   });
 };
 
@@ -87,13 +87,13 @@ const updateHeroMetrics = () => {
   const containerEl = containerRef.value;
   const heroEl = heroRef.value;
   const navEl =
-    document.querySelector<HTMLElement>(".navbar") ??
-    document.querySelector<HTMLElement>(".vp-nav") ??
-    document.querySelector<HTMLElement>(".nav-bar");
+    document.querySelector<HTMLElement>('.navbar') ??
+    document.querySelector<HTMLElement>('.vp-nav') ??
+    document.querySelector<HTMLElement>('.nav-bar');
 
   const measuredNavHeight = navEl?.getBoundingClientRect().height;
   const resolvedNavHeight =
-    typeof measuredNavHeight === "number" && Number.isFinite(measuredNavHeight)
+    typeof measuredNavHeight === 'number' && Number.isFinite(measuredNavHeight)
       ? measuredNavHeight
       : DEFAULT_NAV_HEIGHT;
 
@@ -107,11 +107,11 @@ const updateHeroMetrics = () => {
   heroHeight.value = heroOffsetHeight + navHeight.value;
 
   if (containerEl) {
-    containerEl.style.setProperty("--nav-height", `${navHeight.value}px`);
-    containerEl.style.setProperty("--hero-height", `${heroHeight.value}px`);
+    containerEl.style.setProperty('--nav-height', `${navHeight.value}px`);
+    containerEl.style.setProperty('--hero-height', `${heroHeight.value}px`);
     containerEl.style.setProperty(
-      "--hero-safe-height",
-      `${heroOffsetHeight}px`
+      '--hero-safe-height',
+      `${heroOffsetHeight}px`,
     );
   }
 
@@ -120,17 +120,17 @@ const updateHeroMetrics = () => {
 
 onMounted(() => {
   layers.value = Array.from(
-    document.querySelectorAll<HTMLElement>("[data-type='parallax']")
+    document.querySelectorAll<HTMLElement>("[data-type='parallax']"),
   );
 
   updateHeroMetrics();
-  window.addEventListener("scroll", handleScroll, { passive: true });
-  window.addEventListener("resize", updateHeroMetrics);
+  window.addEventListener('scroll', handleScroll, { passive: true });
+  window.addEventListener('resize', updateHeroMetrics);
 });
 
 onBeforeUnmount(() => {
-  window.removeEventListener("scroll", handleScroll);
-  window.removeEventListener("resize", updateHeroMetrics);
+  window.removeEventListener('scroll', handleScroll);
+  window.removeEventListener('resize', updateHeroMetrics);
   layers.value = [];
 });
 </script>
@@ -267,7 +267,8 @@ onBeforeUnmount(() => {
   position: relative;
   z-index: 1;
   margin-top: 0;
-  background: linear-gradient(
+  background:
+    linear-gradient(
       180deg,
       #130d0a 0%,
       #18100d 33%,
@@ -300,7 +301,7 @@ onBeforeUnmount(() => {
 }
 
 #content::before {
-  content: "";
+  content: '';
   position: absolute;
   inset: 0;
   background: linear-gradient(
@@ -314,13 +315,13 @@ onBeforeUnmount(() => {
 
 #hero-mobile {
   display: none;
-  background: url("https://image.honahec.cc/full-illustration.png") no-repeat
+  background: url('https://image.honahec.cc/full-illustration.png') no-repeat
     center bottom / cover;
   height: 320px;
 }
 
 .layer-bg {
-  background-image: url("https://image.honahec.cc/ilu_bg.jpg");
+  background-image: url('https://image.honahec.cc/ilu_bg.jpg');
   background-size: cover;
   background-position: center bottom;
   opacity: 0;
@@ -328,30 +329,30 @@ onBeforeUnmount(() => {
 }
 
 .layer-1 {
-  background-image: url("https://image.honahec.cc/ilu_03.png");
+  background-image: url('https://image.honahec.cc/ilu_03.png');
   background-position: left bottom;
   opacity: 0;
   animation: layerImageFadeIn 3.4s ease-out 0.1s forwards;
 }
 
 .layer-2 {
-  background-image: url("https://image.honahec.cc/ilu_02.png");
+  background-image: url('https://image.honahec.cc/ilu_02.png');
   background-size: cover;
   background-position: center bottom;
 }
 
 .layer-3 {
-  background-image: url("https://image.honahec.cc/ilu_man.png");
+  background-image: url('https://image.honahec.cc/ilu_man.png');
   background-position: right bottom;
 }
 
 .layer-4 {
-  background-image: url("https://image.honahec.cc/ilu_01.png");
+  background-image: url('https://image.honahec.cc/ilu_01.png');
   background-size: cover;
 }
 
 .layer-overlay {
-  background-image: url("https://image.honahec.cc/ilu_overlay.png");
+  background-image: url('https://image.honahec.cc/ilu_overlay.png');
   background-size: cover;
   background-position: center bottom;
   opacity: 0;
@@ -383,7 +384,9 @@ onBeforeUnmount(() => {
   text-transform: uppercase;
   font-weight: 600;
   opacity: 1;
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
   will-change: opacity, transform;
 }
 
@@ -422,7 +425,9 @@ onBeforeUnmount(() => {
 
 .scroll-indicator-enter-active,
 .scroll-indicator-leave-active {
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
 }
 
 .scroll-indicator-enter-from,
@@ -501,8 +506,11 @@ onBeforeUnmount(() => {
   border: 1px solid rgba(255, 255, 255, 0.35);
   color: #140d0a;
   background: rgba(255, 255, 255, 0.9);
-  transition: transform 0.2s ease, box-shadow 0.2s ease,
-    background-color 0.2s ease, color 0.2s ease;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    color 0.2s ease;
   text-decoration: none;
   min-width: 160px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.25);

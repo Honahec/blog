@@ -25,25 +25,25 @@
 <script setup>
 const timelineData = [
   {
-    year: "2019",
-    title: "青岛中学",
-    period: "2019-2025",
-    icon: "🏫",
-    status: "completed",
+    year: '2019',
+    title: '青岛中学',
+    period: '2019-2025',
+    icon: '🏫',
+    status: 'completed',
   },
   {
-    year: "2025",
-    title: "上海科技大学",
-    period: "2025-2029",
-    icon: "🎓",
-    status: "current",
+    year: '2025',
+    title: '上海科技大学',
+    period: '2025-2029',
+    icon: '🎓',
+    status: 'current',
   },
   {
-    year: "????",
-    title: "To be continued...",
-    period: "2029-?",
-    icon: "✨",
-    status: "future",
+    year: '????',
+    title: 'To be continued...',
+    period: '2029-?',
+    icon: '✨',
+    status: 'future',
   },
 ];
 </script>
