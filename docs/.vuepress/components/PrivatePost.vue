@@ -140,4 +140,45 @@ onMounted(() => {
   max-width: 100%;
   height: auto;
 }
+
+.private-post__content :deep(pre) {
+  margin: 1.25rem 0;
+  padding: 1rem 1.15rem;
+  overflow-x: auto;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 8px;
+  background: var(--vp-code-block-bg, var(--vp-c-bg-soft));
+  line-height: 1.65;
+}
+
+.private-post__content :deep(pre code) {
+  display: block;
+  padding: 0;
+  border-radius: 0;
+  background: transparent;
+  color: var(--vp-code-block-color, var(--vp-c-text-1));
+  font-size: 0.92em;
+  white-space: pre;
+}
+
+.private-post__content :deep(:not(pre) > code) {
+  padding: 0.15em 0.35em;
+  border-radius: 4px;
+  background: var(--vp-code-bg, var(--vp-c-bg-soft));
+  color: var(--vp-code-color, var(--vp-c-brand-1));
+  font-size: 0.9em;
+}
+
+.private-post__content :deep(table) {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  border-collapse: collapse;
+}
+
+.private-post__content :deep(th),
+.private-post__content :deep(td) {
+  padding: 0.55rem 0.75rem;
+  border: 1px solid var(--vp-c-divider);
+}
 </style>
