@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@vuepress/plugin-comment':
+        specifier: 2.0.0-rc.130
+        version: 2.0.0-rc.130(@vuepress/bundler-vite@2.0.0-rc.30(@types/node@25.8.0)(@vue/compiler-sfc@3.5.34)(esbuild@0.28.0)(sass-embedded@1.99.0)(sass@1.99.0)(typescript@5.9.3)(yaml@2.9.0))(typescript@5.9.3)(vuepress@2.0.0-rc.30(@vue/compiler-sfc@3.5.34)(@vuepress/bundler-vite@2.0.0-rc.30(@types/node@25.8.0)(@vue/compiler-sfc@3.5.34)(esbuild@0.28.0)(sass-embedded@1.99.0)(sass@1.99.0)(typescript@5.9.3)(yaml@2.9.0))(typescript@5.9.3)(vue@3.5.34(typescript@5.9.3)))
       '@vuepress/plugin-google-analytics':
         specifier: 2.0.0-rc.130
         version: 2.0.0-rc.130(vuepress@2.0.0-rc.30(@vue/compiler-sfc@3.5.34)(@vuepress/bundler-vite@2.0.0-rc.30(@types/node@25.8.0)(@vue/compiler-sfc@3.5.34)(esbuild@0.28.0)(sass-embedded@1.99.0)(sass@1.99.0)(typescript@5.9.3)(yaml@2.9.0))(typescript@5.9.3)(vue@3.5.34(typescript@5.9.3)))
@@ -41,6 +44,9 @@ importers:
       three:
         specifier: ^0.184.0
         version: 0.184.0
+      vue-router:
+        specifier: 5.0.7
+        version: 5.0.7(@vue/compiler-sfc@3.5.34)(vue@3.5.34(typescript@5.9.3))
     devDependencies:
       '@vuepress/bundler-vite':
         specifier: 2.0.0-rc.30

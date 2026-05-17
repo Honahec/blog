@@ -3,7 +3,7 @@
   "type": "module",
   "version": "1.0.0",
   "description": "Honahec's Blog",
-  "packageManager": "pnpm@11.1.2+sha512.415a1cc25974731e75455c1468371be74c5aa5fb7621b50d4056d222451609f11412f23fd602e6169f1e060466641f798597e1be961a10688836a67b16569499",
+  "packageManager": "pnpm@11.1.2",
   "pnpm": {
     "onlyBuiltDependencies": [
       "@parcel/watcher",
@@ -31,6 +31,7 @@
     "vuepress-theme-plume": "1.0.0-rc.201"
   },
   "dependencies": {
+    "@vuepress/plugin-comment": "2.0.0-rc.130",
     "@vuepress/plugin-google-analytics": "2.0.0-rc.130",
     "@vuepress/shiki-twoslash": "2.0.0-rc.130",
     "artplayer": "^5.4.0",
@@ -41,6 +42,7 @@
     "postprocessing": "^6.39.1",
     "pyodide": "^0.29.4",
     "sass-embedded": "^1.99.0",
-    "three": "^0.184.0"
+    "three": "^0.184.0",
+    "vue-router": "5.0.7"
   }
 }
