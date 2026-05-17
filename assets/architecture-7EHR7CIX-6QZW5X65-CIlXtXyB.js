@@ -1,0 +1,1 @@
+import{Vr as e}from"./common-CyTTUmWJ.js";export{e as createArchitectureServices};
