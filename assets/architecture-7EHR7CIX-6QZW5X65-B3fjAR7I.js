@@ -1,1 +1,0 @@
-import{Vr as e}from"./common-CLspRb2n.js";export{e as createArchitectureServices};
