@@ -3,6 +3,7 @@ import { readFile, writeFile } from 'node:fs/promises';
 const distDir = new URL('../docs/.vuepress/dist/', import.meta.url);
 const sitemapUrl = new URL('sitemap.xml', distDir);
 const googleSitemapUrl = new URL('sitemap-google.xml', distDir);
+const textSitemapUrl = new URL('sitemap.txt', distDir);
 const robotsUrl = new URL('robots.txt', distDir);
 
 const sitemap = await readFile(sitemapUrl, 'utf8');
@@ -15,11 +16,17 @@ const googleSitemap = sitemap
 
 await writeFile(googleSitemapUrl, googleSitemap, 'utf8');
 await writeFile(
+  textSitemapUrl,
+  `${[...googleSitemap.matchAll(/<loc>([^<]+)<\/loc>/gu)].map(([, url]) => url).join('\n')}\n`,
+  'utf8',
+);
+await writeFile(
   robotsUrl,
   [
     'User-agent: *',
     'Allow: /',
     '',
+    'Sitemap: https://blog.honahec.cc/sitemap.txt',
     'Sitemap: https://blog.honahec.cc/sitemap-google.xml',
     'Sitemap: https://blog.honahec.cc/sitemap.xml',
     '',
