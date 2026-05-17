@@ -15,6 +15,7 @@ import {
 import Homepage from './components/Homepage.vue';
 import EducationTimeLine from './components/EducationTimeLine.vue';
 import RandomTagline from './components/RandomTagline.vue';
+import PrivatePost from './components/PrivatePost.vue';
 
 //@ts-ignore
 import './style.scss';
@@ -31,6 +32,7 @@ export default defineClientConfig({
     app.component('Homepage', Homepage);
     app.component('EducationTimeLine', EducationTimeLine);
     app.component('RandomTagline', RandomTagline);
+    app.component('PrivatePost', PrivatePost);
   },
   setup() {
     const { frontmatter } = useData();
