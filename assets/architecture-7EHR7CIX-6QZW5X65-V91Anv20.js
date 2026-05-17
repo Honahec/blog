@@ -1,1 +1,0 @@
-import{Vr as e}from"./common-DjwurSJG.js";export{e as createArchitectureServices};

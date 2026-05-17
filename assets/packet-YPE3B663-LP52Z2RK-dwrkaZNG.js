@@ -1,0 +1,1 @@
+import{Fr as e}from"./common-CSBmG02Z.js";export{e as createPacketServices};
