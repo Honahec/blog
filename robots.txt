@@ -1,6 +1,3 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://blog.honahec.cc/sitemap.txt
-Sitemap: https://blog.honahec.cc/sitemap-google.xml
 Sitemap: https://blog.honahec.cc/sitemap.xml
+User-agent:*
+Disallow:
