@@ -1,0 +1,1 @@
+import{Vr as e}from"./common-D7Vufeay.js";export{e as createArchitectureServices};
