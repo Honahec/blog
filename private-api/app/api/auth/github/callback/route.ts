@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
   try {
     const user = await exchangeCodeForGitHubUser(code);
     const maxAgeSeconds = Number(process.env.SESSION_MAX_AGE_SECONDS ?? 604800);
-    return redirectResponse(decodedState.returnTo, [
+    return redirectResponse(new URL(decodedState.returnTo, req.nextUrl.origin).toString(), [
       clearOAuthStateCookie(),
       createSessionCookie(user, maxAgeSeconds),
     ]);
