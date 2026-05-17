@@ -1,0 +1,1 @@
+import{Vr as e}from"./common-asIfm0Xr.js";export{e as createArchitectureServices};
