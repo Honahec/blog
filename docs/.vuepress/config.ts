@@ -89,7 +89,6 @@ export default defineUserConfig({
         timeStyle: 'short',
       },
     },
-    contributors: false,
     changelog: true,
 
     /**
@@ -219,5 +218,13 @@ export default defineUserConfig({
      * @see https://theme-plume.vuejs.press/guide/features/encryption/
      */
     // encrypt: {},
+
+    contributors: {
+      mode: 'block',
+    },
+
+    plugins: {
+      git: true,
+    },
   }),
 });
