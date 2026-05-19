@@ -457,6 +457,12 @@ onBeforeUnmount(() => {
   box-shadow: 0 20px 60px rgba(10, 6, 4, 0.45);
 }
 
+:global([data-theme='dark'] .homepage-parallax .hero-card) {
+  background-color: var(--vp-c-bg);
+  background-image: none;
+  border-color: var(--vp-c-divider);
+}
+
 .hero-card__info {
   display: flex;
   flex-direction: column;
