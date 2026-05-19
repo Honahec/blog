@@ -501,7 +501,7 @@ https://2025.geekpie.club/HPC
 
 https://2025.geekpie.club/DevOps
 
-相较于 https://2025.geekpie.club，简单观察网站后不难发现，这些网站下方的Terminal中多出了两段（Arch为一段，无next_hash）内容：（以 /Web 为例）
+相较于 https://2025.geekpie.club，简单观察网站后不难发现，这些网站下方的 Terminal 中多出了两段（Arch 为一段，无 next_hash）内容：（以 /Web 为例）
 
 ![](https://image.honahec.cc/20251001163840474.png)
 

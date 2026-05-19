@@ -1,0 +1,45 @@
+{
+  "$schema": "https://raw.githubusercontent.com/DavidAnson/markdownlint-cli2/main/schema/markdownlint-cli2-config-schema.json",
+  "globs": [
+    "*.md",
+    "docs/**/*.md",
+    "private-api/**/*.md"
+  ],
+  "ignores": [
+    "docs/.vuepress/**",
+    "**/node_modules/**"
+  ],
+  "gitignore": true,
+  "noBanner": true,
+  "noProgress": true,
+  "customRules": [
+    "./markdownlint-rules/cjk-space.cjs"
+  ],
+  "config": {
+    "default": true,
+    "cjk-space": true,
+
+    "MD001": false,
+    "MD003": {
+      "style": "atx"
+    },
+    "MD010": false,
+    "MD013": false,
+    "MD024": false,
+    "MD025": false,
+    "MD026": false,
+    "MD028": false,
+    "MD029": false,
+    "MD030": false,
+    "MD033": false,
+    "MD034": false,
+    "MD036": false,
+    "MD037": false,
+    "MD040": false,
+    "MD041": false,
+    "MD045": false,
+    "MD046": false,
+    "MD049": false,
+    "MD060": false
+  }
+}

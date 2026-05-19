@@ -16,7 +16,7 @@ tags:
 
 ## 注册微信小程序
 
-首先需要在微信公众平台上注册小程序、下载小程序开发平台并绑定appID
+首先需要在微信公众平台上注册小程序、下载小程序开发平台并绑定 appID
 
 此部分在网络上有许多教程，不再赘述
 
@@ -85,7 +85,7 @@ class WiFiConfigCallback : public BLECharacteristicCallbacks {
 
 每当客户端往某个特征（SSID 或密码）写入数据时，ESP32 就会自动执行 `onWrite()`
 
-::: collapse 
+::: collapse
 
 -   为什么会自动执行 `onWrite()` ?（原理解释，可以不看）
 
@@ -106,7 +106,6 @@ class WiFiConfigCallback : public BLECharacteristicCallbacks {
     ```
 
 :::
-
 
 ### `onWrite()` 方法
 
@@ -365,7 +364,6 @@ wx.writeBLECharacteristicValue({
 > [!NOTE]
 >
 > 以上为基本实现流程，剩下代码中的事件监听与断线处理、日志等可有可无，不影响主体功能，自行研究
-
 
 ## 整体流程
 

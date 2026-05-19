@@ -168,7 +168,7 @@ GitHub 注册 OAuth App 的地址： https://github.com/settings/developers
 
 2.  用户想使用 **Best-Notes** 导入 gist 的功能，于是点击某个网站按钮
 
-    ![触发OAuth授权的按钮](https://pic3.zhimg.com/v2-aa23af88c35173f1feef1d7aa96bdad0_1440w.jpg)
+    ![触发 OAuth 授权的按钮](https://pic3.zhimg.com/v2-aa23af88c35173f1feef1d7aa96bdad0_1440w.jpg)
 
 3.  这时 **Best-Notes** 会将浏览器重定向到一个新的网址。
 

@@ -60,17 +60,18 @@ void setup() {
     Serial.println(WiFi.localIP()); //输出内网 IP
 }
 ```
+
 > [!INFO]
-> 
+>
 > 常见的 WiFi 状态码：
 >
-> ==0 (WL_IDLE_STATUS)==：当调用 WiFi.begin() 后进入空闲状态。 
+> ==0 (WL_IDLE_STATUS)==：当调用 WiFi.begin() 后进入空闲状态。
 >
-> ==1 (WL_NO_SSID_AVAIL)==：表示 没有可用的 SSID（即找不到你要连接的网络） 
-> 
-> ==3 (WL_CONNECTED)==：表示已连接成功。 
+> ==1 (WL_NO_SSID_AVAIL)==：表示 没有可用的 SSID（即找不到你要连接的网络）
 >
-> ==6 (WL_DISCONNECTED)==：表示已断开连接或从网络中脱离。 
+> ==3 (WL_CONNECTED)==：表示已连接成功。
+>
+> ==6 (WL_DISCONNECTED)==：表示已断开连接或从网络中脱离。
 
 > [!WARNING]
 >
