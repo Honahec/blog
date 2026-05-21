@@ -24,17 +24,17 @@
  *
  * 通过 `defineCollection` 定义的 collection 配置，应该填入 `defineCollections` 中
  */
-import { defineCollection, defineCollections } from 'vuepress-theme-plume';
+import { defineCollection, defineCollections } from "vuepress-theme-plume";
 
 const blog = defineCollection({
   // post 类型，这里用于实现 博客功能
-  type: 'post',
+  type: "post",
   // 文档集合所在目录，相对于 `docs`
-  dir: 'blog',
+  dir: "blog",
   // 文档标题，它将用于在页面的面包屑导航中显示
-  title: '博客',
+  title: "博客",
   // 文章列表页的链接，如果 `linkPrefix` 未定义，它也将作为 相关的文章的 permalink 的前缀
-  link: '/blog/',
+  link: "/blog/",
   //   linkPrefix: '/article/', // 相关文章的链接前缀
   // postList: true, // 是否启用文章列表页
   tags: true, // 是否启用标签页

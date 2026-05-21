@@ -1,10 +1,10 @@
-import { computed, onMounted, watch } from 'vue';
-import { defineClientConfig, useData } from 'vuepress/client';
-import { useRoute } from 'vue-router';
+import { computed, onMounted, watch } from "vue";
+import { defineClientConfig, useData } from "vuepress/client";
+import { useRoute } from "vue-router";
 import {
   defineGiscusConfig,
   useGiscusOptions,
-} from '@vuepress/plugin-comment/client';
+} from "@vuepress/plugin-comment/client";
 // import RepoCard from 'vuepress-theme-plume/features/RepoCard.vue'
 // import NpmBadge from 'vuepress-theme-plume/features/NpmBadge.vue'
 // import NpmBadgeGroup from 'vuepress-theme-plume/features/NpmBadgeGroup.vue'
@@ -12,13 +12,12 @@ import {
 
 // import CustomComponent from './theme/components/Custom.vue'
 
-import Homepage from './components/Homepage.vue';
-import EducationTimeLine from './components/EducationTimeLine.vue';
-import RandomTagline from './components/RandomTagline.vue';
-import PrivatePost from './components/PrivatePost.vue';
+import Homepage from "./components/Homepage.vue";
+import EducationTimeLine from "./components/EducationTimeLine.vue";
+import RandomTagline from "./components/RandomTagline.vue";
 
 //@ts-ignore
-import './style.scss';
+import "./style.scss";
 
 export default defineClientConfig({
   enhance({ app }) {
@@ -29,14 +28,13 @@ export default defineClientConfig({
     // app.component('Swiper', Swiper) // you should install `swiper`
     // your custom components
     // app.component('CustomComponent', CustomComponent)
-    app.component('Homepage', Homepage);
-    app.component('EducationTimeLine', EducationTimeLine);
-    app.component('RandomTagline', RandomTagline);
-    app.component('PrivatePost', PrivatePost);
+    app.component("Homepage", Homepage);
+    app.component("EducationTimeLine", EducationTimeLine);
+    app.component("RandomTagline", RandomTagline);
   },
   setup() {
     const { frontmatter } = useData();
-    const route = useRoute();
+    // const route = useRoute();
     const globalGiscusOptions = useGiscusOptions();
     const baseOptions = { ...globalGiscusOptions.value };
 
@@ -46,9 +44,9 @@ export default defineClientConfig({
         return {
           ...baseOptions,
           mapping:
-            typeof mapping === 'string' && mapping.trim()
+            typeof mapping === "string" && mapping.trim()
               ? (mapping as typeof baseOptions.mapping)
-              : (baseOptions.mapping ?? 'pathname'),
+              : (baseOptions.mapping ?? "pathname"),
         };
       }),
     );

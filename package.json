@@ -16,6 +16,7 @@
     "node": "^20.6.0 || >=22.0.0"
   },
   "scripts": {
+    "dev": "vuepress dev docs",
     "docs:dev": "vuepress dev docs",
     "docs:dev-clean": "vuepress dev docs --clean-cache --clean-temp",
     "docs:build": "vuepress build docs --clean-cache --clean-temp",
@@ -27,6 +28,8 @@
     "@vuepress/bundler-vite": "2.0.0-rc.30",
     "http-server": "^14.1.1",
     "markdownlint-cli2": "^0.22.1",
+    "tm-grammars": "^1.31.15",
+    "tm-themes": "^1.12.2",
     "typescript": "^5.9.3",
     "vue": "^3.5.34",
     "vuepress": "2.0.0-rc.30",
