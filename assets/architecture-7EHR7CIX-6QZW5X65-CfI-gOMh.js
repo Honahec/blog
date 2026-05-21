@@ -1,1 +1,0 @@
-import{Vr as e}from"./common-y3whrEQC.js";export{e as createArchitectureServices};
