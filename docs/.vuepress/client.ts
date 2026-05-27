@@ -13,6 +13,7 @@ import {
 // import CustomComponent from './theme/components/Custom.vue'
 
 import Homepage from "./components/Homepage.vue";
+import HomepageV2 from "./components/HomepageV2.vue";
 import EducationTimeLine from "./components/EducationTimeLine.vue";
 import RandomTagline from "./components/RandomTagline.vue";
 
@@ -29,6 +30,7 @@ export default defineClientConfig({
     // your custom components
     // app.component('CustomComponent', CustomComponent)
     app.component("Homepage", Homepage);
+    app.component("HomepageV2", HomepageV2);
     app.component("EducationTimeLine", EducationTimeLine);
     app.component("RandomTagline", RandomTagline);
   },
