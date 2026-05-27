@@ -1,0 +1,1 @@
+import{Vr as e}from"./common-DGXWC5ff.js";export{e as createArchitectureServices};
