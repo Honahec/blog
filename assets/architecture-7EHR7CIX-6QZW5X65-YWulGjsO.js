@@ -1,0 +1,1 @@
+import{Vr as e}from"./common-B2ZCdKvw.js";export{e as createArchitectureServices};
