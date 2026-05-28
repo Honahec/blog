@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
-import { RouterLink } from 'vue-router';
-import type * as ThreeNamespace from 'three';
+import { computed, onBeforeUnmount, onMounted, ref } from "vue";
+import { RouterLink } from "vue-router";
+import type * as ThreeNamespace from "three";
 
 type HeroAction = {
   text: string;
   link?: string;
-  theme?: 'brand' | 'alt' | 'ghost' | 'outline' | string;
+  theme?: "brand" | "alt" | "ghost" | "outline" | string;
 };
 
 type HeroConfig = {
@@ -26,7 +26,7 @@ const props = defineProps<{
 const hero = computed(() => props.hero ?? null);
 
 const isExternalLink = (link?: string) =>
-  typeof link === 'string' && /^(https?:)?\/\//.test(link);
+  typeof link === "string" && /^(https?:)?\/\//.test(link);
 
 const rootRef = ref<HTMLElement | null>(null);
 const canvasHostRef = ref<HTMLElement | null>(null);
@@ -137,10 +137,12 @@ const readThemeColor = (name: string, fallback: string) => {
 };
 
 const updateThemeColors = () => {
-  edgeMaterial?.color.set(readThemeColor('--homepage-v2-line', '#202938'));
-  edgeGlowMaterial?.color.set(readThemeColor('--homepage-v2-glow', '#2563eb'));
-  vertexMaterial?.color.set(readThemeColor('--homepage-v2-point', '#2563eb'));
-  vertexGlowMaterial?.color.set(readThemeColor('--homepage-v2-glow', '#2563eb'));
+  edgeMaterial?.color.set(readThemeColor("--homepage-v2-line", "#202938"));
+  edgeGlowMaterial?.color.set(readThemeColor("--homepage-v2-glow", "#2563eb"));
+  vertexMaterial?.color.set(readThemeColor("--homepage-v2-point", "#2563eb"));
+  vertexGlowMaterial?.color.set(
+    readThemeColor("--homepage-v2-glow", "#2563eb"),
+  );
 };
 
 const updateScrollIndicator = () => {
@@ -241,7 +243,7 @@ const setupScene = async () => {
     return;
   }
 
-  const THREE = await import('three');
+  const THREE = await import("three");
 
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
@@ -253,7 +255,7 @@ const setupScene = async () => {
   renderer = new THREE.WebGLRenderer({
     alpha: true,
     antialias: true,
-    powerPreference: 'high-performance',
+    powerPreference: "high-performance",
   });
   renderer.setClearAlpha(0);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
@@ -265,25 +267,25 @@ const setupScene = async () => {
   vertexCoreGeometry = new THREE.SphereGeometry(0.038, 16, 12);
   vertexGlowGeometry = new THREE.SphereGeometry(0.11, 16, 12);
   edgeMaterial = new THREE.MeshBasicMaterial({
-    color: readThemeColor('--homepage-v2-line', '#202938'),
+    color: readThemeColor("--homepage-v2-line", "#202938"),
     transparent: true,
     opacity: 0.88,
   });
   edgeGlowMaterial = new THREE.MeshBasicMaterial({
     blending: THREE.AdditiveBlending,
-    color: readThemeColor('--homepage-v2-glow', '#2563eb'),
+    color: readThemeColor("--homepage-v2-glow", "#2563eb"),
     depthWrite: false,
     transparent: true,
     opacity: 0.2,
   });
   vertexMaterial = new THREE.MeshBasicMaterial({
-    color: readThemeColor('--homepage-v2-point', '#2563eb'),
+    color: readThemeColor("--homepage-v2-point", "#2563eb"),
     transparent: true,
     opacity: 0.92,
   });
   vertexGlowMaterial = new THREE.MeshBasicMaterial({
     blending: THREE.AdditiveBlending,
-    color: readThemeColor('--homepage-v2-glow', '#2563eb'),
+    color: readThemeColor("--homepage-v2-glow", "#2563eb"),
     depthWrite: false,
     transparent: true,
     opacity: 0.34,
@@ -317,12 +319,12 @@ const setupScene = async () => {
 };
 
 onMounted(() => {
-  reducedMotionQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+  reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
   updateScrollIndicator();
   setupScene();
 
-  window.addEventListener('scroll', updateScrollIndicator, { passive: true });
-  window.addEventListener('resize', resizeRenderer);
+  window.addEventListener("scroll", updateScrollIndicator, { passive: true });
+  window.addEventListener("resize", resizeRenderer);
 
   resizeObserver = new ResizeObserver(resizeRenderer);
 
@@ -333,14 +335,14 @@ onMounted(() => {
   themeObserver = new MutationObserver(updateThemeColors);
   themeObserver.observe(document.documentElement, {
     attributes: true,
-    attributeFilter: ['class', 'data-theme'],
+    attributeFilter: ["class", "data-theme"],
   });
 });
 
 onBeforeUnmount(() => {
   window.cancelAnimationFrame(animationFrame);
-  window.removeEventListener('scroll', updateScrollIndicator);
-  window.removeEventListener('resize', resizeRenderer);
+  window.removeEventListener("scroll", updateScrollIndicator);
+  window.removeEventListener("resize", resizeRenderer);
   resizeObserver?.disconnect();
   themeObserver?.disconnect();
 
@@ -365,10 +367,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div
-    ref="rootRef"
-    class="homepage-v2"
-  >
+  <div ref="rootRef" class="homepage-v2">
     <section class="homepage-v2__stage">
       <div class="homepage-v2__sticky">
         <div
@@ -459,7 +458,7 @@ onBeforeUnmount(() => {
   overflow: clip;
 }
 
-:global([data-theme='dark'] .homepage-v2),
+:global([data-theme="dark"] .homepage-v2),
 :global(.dark .homepage-v2) {
   --homepage-v2-bg: #05070b;
   --homepage-v2-bg-soft: #111827;
@@ -492,7 +491,7 @@ onBeforeUnmount(() => {
 }
 
 .homepage-v2__sticky::before {
-  content: '';
+  content: "";
   position: absolute;
   inset: 0;
   z-index: -2;
@@ -511,7 +510,7 @@ onBeforeUnmount(() => {
   opacity: 0.9;
 }
 
-:global([data-theme='dark'] .homepage-v2__sticky::before),
+:global([data-theme="dark"] .homepage-v2__sticky::before),
 :global(.dark .homepage-v2__sticky::before) {
   background:
     linear-gradient(
