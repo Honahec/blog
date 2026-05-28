@@ -442,6 +442,7 @@ onBeforeUnmount(() => {
 <style scoped>
 .homepage-v2 {
   --nav-height: 56px;
+  --homepage-v2-stage-height: calc(88vh - var(--nav-height));
   --homepage-v2-bg: #fbfbf8;
   --homepage-v2-bg-soft: #f1f5f1;
   --homepage-v2-text: #111827;
@@ -476,7 +477,7 @@ onBeforeUnmount(() => {
 
 .homepage-v2__stage {
   position: relative;
-  min-height: calc(100vh - var(--nav-height));
+  min-height: var(--homepage-v2-stage-height);
 }
 
 .homepage-v2__sticky {
@@ -485,8 +486,8 @@ onBeforeUnmount(() => {
   grid-template-columns: minmax(380px, 0.86fr) minmax(320px, 1.14fr);
   align-items: center;
   gap: clamp(28px, 5vw, 72px);
-  min-height: calc(100vh - var(--nav-height));
-  padding: clamp(36px, 7vw, 96px) clamp(24px, 6vw, 96px);
+  min-height: var(--homepage-v2-stage-height);
+  padding: clamp(28px, 5vw, 72px) clamp(24px, 6vw, 96px);
   isolation: isolate;
 }
 
@@ -649,8 +650,8 @@ onBeforeUnmount(() => {
   grid-row: 1;
   justify-self: end;
   width: min(76vw, 1040px);
-  height: min(84vh, 820px);
-  min-height: 560px;
+  height: min(74vh, 720px);
+  min-height: 500px;
   margin-right: max(-18vw, -240px);
 }
 
@@ -721,16 +722,20 @@ onBeforeUnmount(() => {
 }
 
 @media (max-width: 820px) {
+  .homepage-v2 {
+    --homepage-v2-stage-height: calc(88svh - var(--nav-height));
+  }
+
   .homepage-v2__stage {
-    min-height: calc(100vh - var(--nav-height));
+    min-height: var(--homepage-v2-stage-height);
   }
 
   .homepage-v2__sticky {
     position: relative;
     grid-template-columns: 1fr;
     align-content: center;
-    min-height: calc(100svh - var(--nav-height));
-    padding: 52px 20px 84px;
+    min-height: var(--homepage-v2-stage-height);
+    padding: 44px 20px 72px;
     overflow: hidden;
   }
 
@@ -757,8 +762,8 @@ onBeforeUnmount(() => {
     grid-column: auto;
     grid-row: auto;
     width: min(138vw, 680px);
-    height: 62vh;
-    min-height: 360px;
+    height: 56vh;
+    min-height: 320px;
     margin-right: 0;
     opacity: 0.34;
     transform: none;
