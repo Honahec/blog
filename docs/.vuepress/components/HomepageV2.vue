@@ -247,7 +247,7 @@ const setupScene = async () => {
 
   scene = new THREE.Scene();
   camera = new THREE.PerspectiveCamera(38, 1, 0.1, 100);
-  camera.position.set(0, 0.08, 7.4);
+  camera.position.set(0, 0.08, 8.8);
   animationStart = performance.now();
   unitY = new THREE.Vector3(0, 1, 0);
   edgeDirection = new THREE.Vector3();
@@ -443,7 +443,7 @@ onBeforeUnmount(() => {
 .homepage-v2 {
   --nav-height: 56px;
   --homepage-v2-stage-height: calc(88vh - var(--nav-height));
-  --homepage-v2-bg: #fbfbf8;
+  --homepage-v2-bg: var(--vp-c-bg);
   --homepage-v2-bg-soft: #f1f5f1;
   --homepage-v2-text: #111827;
   --homepage-v2-muted: #5f6b7a;
@@ -452,16 +452,16 @@ onBeforeUnmount(() => {
   --homepage-v2-glow: #2563eb;
   --homepage-v2-border: rgba(17, 24, 39, 0.14);
   --homepage-v2-brand: #2457d6;
-  background:
-    linear-gradient(180deg, var(--homepage-v2-bg) 0%, #ffffff 62%),
-    var(--homepage-v2-bg);
+  --homepage-v2-pattern: rgba(31, 41, 55, 0.05);
+  background: var(--homepage-v2-bg);
+  box-shadow: inset 0 -1px 0 var(--vp-c-divider);
   color: var(--homepage-v2-text);
   overflow: clip;
 }
 
 :global([data-theme="dark"] .homepage-v2),
 :global(.dark .homepage-v2) {
-  --homepage-v2-bg: #05070b;
+  --homepage-v2-bg: var(--vp-c-bg);
   --homepage-v2-bg-soft: #111827;
   --homepage-v2-text: #f8fafc;
   --homepage-v2-muted: #a7b1c2;
@@ -470,9 +470,8 @@ onBeforeUnmount(() => {
   --homepage-v2-glow: #8bd3ff;
   --homepage-v2-border: rgba(248, 250, 252, 0.16);
   --homepage-v2-brand: #8bd3ff;
-  background:
-    linear-gradient(180deg, #05070b 0%, #0a0f18 58%, var(--vp-c-bg) 100%),
-    var(--homepage-v2-bg);
+  --homepage-v2-pattern: rgba(248, 250, 252, 0.055);
+  background: var(--homepage-v2-bg);
 }
 
 .homepage-v2__stage {
@@ -496,35 +495,26 @@ onBeforeUnmount(() => {
   position: absolute;
   inset: 0;
   z-index: -2;
-  background:
-    linear-gradient(
-      120deg,
-      rgba(36, 87, 214, 0.08),
-      transparent 38%,
-      rgba(39, 176, 130, 0.1) 100%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 48px,
-      rgba(31, 41, 55, 0.035) 48px 49px
-    );
-  opacity: 0.9;
+  background-image:
+    linear-gradient(var(--homepage-v2-pattern) 1px, transparent 1px),
+    linear-gradient(90deg, var(--homepage-v2-pattern) 1px, transparent 1px);
+  background-position:
+    center,
+    center;
+  background-size: 56px 56px;
+  mask-image: linear-gradient(180deg, #000 0%, #000 68%, transparent 100%);
+  opacity: 0.52;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 68%,
+    transparent 100%
+  );
 }
 
 :global([data-theme="dark"] .homepage-v2__sticky::before),
 :global(.dark .homepage-v2__sticky::before) {
-  background:
-    linear-gradient(
-      120deg,
-      rgba(139, 211, 255, 0.11),
-      transparent 40%,
-      rgba(42, 196, 149, 0.09) 100%
-    ),
-    repeating-linear-gradient(
-      90deg,
-      transparent 0 48px,
-      rgba(248, 250, 252, 0.045) 48px 49px
-    );
+  opacity: 0.42;
 }
 
 .homepage-v2__copy {
@@ -649,10 +639,10 @@ onBeforeUnmount(() => {
   grid-column: 2;
   grid-row: 1;
   justify-self: end;
-  width: min(76vw, 1040px);
-  height: min(74vh, 720px);
-  min-height: 500px;
-  margin-right: max(-18vw, -240px);
+  width: min(84vw, 1160px);
+  height: clamp(620px, 84vh, 860px);
+  margin-block: -48px;
+  margin-right: max(-20vw, -280px);
 }
 
 .homepage-v2__canvas :deep(canvas) {
@@ -757,13 +747,14 @@ onBeforeUnmount(() => {
 
   .homepage-v2__canvas {
     position: absolute;
-    top: 4vh;
-    right: -42vw;
+    top: 0;
+    right: -48vw;
     grid-column: auto;
     grid-row: auto;
-    width: min(138vw, 680px);
-    height: 56vh;
-    min-height: 320px;
+    width: min(154vw, 760px);
+    height: 66vh;
+    min-height: 400px;
+    margin-block: 0;
     margin-right: 0;
     opacity: 0.34;
     transform: none;
