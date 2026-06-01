@@ -381,4 +381,4 @@ wx.writeBLECharacteristicValue({
 
 ## 附件
 
-[ts 源代码](https://api.honahec.cc/download/119cc84c-4bbb-444a-a1b8-1a5a84460d5a)
+[ts 源代码](https://api.honahec.cc/download/9e4c47fb-ae6a-43fc-9e64-fbc5d949b6ef)
