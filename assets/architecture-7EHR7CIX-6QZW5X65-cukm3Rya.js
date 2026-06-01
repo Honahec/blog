@@ -1,1 +1,0 @@
-import{Vr as e}from"./common-ICIeFPhK.js";export{e as createArchitectureServices};
