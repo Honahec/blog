@@ -1,0 +1,1 @@
+import{Vr as e}from"./common-BVaIzleR.js";export{e as createArchitectureServices};
