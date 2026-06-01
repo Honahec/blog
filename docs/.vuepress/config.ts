@@ -221,6 +221,12 @@ export default defineUserConfig({
 
     contributors: {
       mode: "block",
+      info: [
+        {
+          username: "Honahec",
+          alias: ["Hao Chen", "honahec"],
+        },
+      ],
     },
 
     plugins: {
