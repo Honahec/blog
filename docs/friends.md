@@ -22,6 +22,10 @@ groups:
         avatar: https://irongrey.top/headphoto.png
         desc: Iron_Grey_的首页
         link: https://IronGrey.top/
+      - name: 糌粑_ZAMBAR
+        avatar: https://q1.qlogo.cn/g?b=qq&nk=2278739762&s=640
+        desc: 欢迎访问糌粑的博客~
+        link: https://zambar.dev
   - title: 项目
     list:
       - name: QA瓜田
