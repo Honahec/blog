@@ -3,8 +3,8 @@ title: Nginx 教程
 createTime: 2024/11/5 14:28:56
 permalink: /blog/k30z9hdj/
 tags:
-  - 部署
-  - 后端
+  - Deploy
+  - Backend
 ---
 
 > nginx ("engine x") is an HTTP web server, reverse proxy, content cache, load balancer, TCP/UDP proxy server, and mail proxy server.

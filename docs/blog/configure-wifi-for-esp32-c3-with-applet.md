@@ -3,9 +3,9 @@ title: 开发微信小程序为 esp32-c3 板子蓝牙配网实践
 createTime: 2025/10/26 16:58:04
 permalink: /blog/2xnpkxsp/
 tags:
-    - 硬件
-    - Arduino 开发
-    - 微信小程序
+  - Hardware
+  - Arduino
+  - WeChat Mini Program
 ---
 
 > [!NOTE]
@@ -59,10 +59,10 @@ String password = "";
 
 BLE 通信通过 ==服务(Service)和特征(Characteristic)实现==
 
-| 特征            | UUID          | 功能            |
-| ------------- | ------------- | ------------- |
-| SSID_UUID   | 6E400002... | 接收 Wi-Fi 名称   |
-| PASS_UUID   | 6E400003... | 接收 Wi-Fi 密码   |
+| 特征        | UUID        | 功能                |
+| ----------- | ----------- | ------------------- |
+| SSID_UUID   | 6E400002... | 接收 Wi-Fi 名称     |
+| PASS_UUID   | 6E400003... | 接收 Wi-Fi 密码     |
 | STATUS_UUID | 6E400004... | 通知 Wi-Fi 连接状态 |
 
 SERVICE_UUID 用来把这些特征归为同一个服务，客户端扫描时可以一起识别。
@@ -87,23 +87,22 @@ class WiFiConfigCallback : public BLECharacteristicCallbacks {
 
 ::: collapse
 
--   为什么会自动执行 `onWrite()` ?（原理解释，可以不看）
+- 为什么会自动执行 `onWrite()` ?（原理解释，可以不看）
 
-    在使用 ESP32 的 BLE 库时，ESP32 BLE 栈内部维护了一套事件监听系统（event dispatcher）。
+  在使用 ESP32 的 BLE 库时，ESP32 BLE 栈内部维护了一套事件监听系统（event dispatcher）。
 
-    一会在初始化函数中，我们将会使用 `ssidChar->setCallbacks(new WiFiConfigCallback());`
+  一会在初始化函数中，我们将会使用 `ssidChar->setCallbacks(new WiFiConfigCallback());`
 
-    这将告诉 ESP32：“当这个特征（ssidChar）被客户端写入时，请调用我这个类（WiFiConfigCallback）中的 `onWrite()` 函数。”
+  这将告诉 ESP32：“当这个特征（ssidChar）被客户端写入时，请调用我这个类（WiFiConfigCallback）中的 `onWrite()` 函数。”
 
-    相当于在 BLE 栈中注册了一个“事件监听器”。
+  相当于在 BLE 栈中注册了一个“事件监听器”。
 
-    我们可以将此过程理解为一个事件链
+  我们可以将此过程理解为一个事件链
 
-    ```yaml
-    手机 App（客户端） → 向特征 UUID 写入数据 → ESP32（服务端） BLE 栈接收数据 
-    → 触发“write event” → 调用注册的回调对象的 onWrite() 方法
-
-    ```
+  ```yaml
+  手机 App（客户端） → 向特征 UUID 写入数据 → ESP32（服务端） BLE 栈接收数据
+  → 触发“write event” → 调用注册的回调对象的 onWrite() 方法
+  ```
 
 :::
 
@@ -171,7 +170,7 @@ void setup() {
   Serial.begin(9600);
   BLEDevice::init("ESP32C3_BLE");
   delay(500);
-  
+
   BLEServer *pServer = BLEDevice::createServer();
   BLEService *pService = pServer->createService(SERVICE_UUID);
 
@@ -200,26 +199,26 @@ void setup() {
 小程序主要完成以下任务：
 
 ```yaml
-打开蓝牙 → 扫描设备 → 连接 ESP32 → 获取特征值 
+打开蓝牙 → 扫描设备 → 连接 ESP32 → 获取特征值
 → 发送 Wi-Fi 名称与密码 → 等待设备反馈连接状态
 ```
 
 ### 定义 UUID 常量
 
 ```ts
-const SERVICE_UUID = '6E400001-B5A3-F393-E0A9-E50E24DCCA9E'
-const SSID_UUID = '6E400002-B5A3-F393-E0A9-E50E24DCCA9E'
-const PASS_UUID = '6E400003-B5A3-F393-E0A9-E50E24DCCA9E'
-const STATUS_UUID = '6E400004-B5A3-F393-E0A9-E50E24DCCA9E'
+const SERVICE_UUID = "6E400001-B5A3-F393-E0A9-E50E24DCCA9E";
+const SSID_UUID = "6E400002-B5A3-F393-E0A9-E50E24DCCA9E";
+const PASS_UUID = "6E400003-B5A3-F393-E0A9-E50E24DCCA9E";
+const STATUS_UUID = "6E400004-B5A3-F393-E0A9-E50E24DCCA9E";
 ```
 
 这些 UUID 必须与 ESP32 固件中的定义 ==完全一致==，否则小程序无法识别到正确的服务和特征。
 
-| 名称             | 用途             |
-| -------------- | -------------- |
-| SERVICE_UUID | 蓝牙服务标识         |
-| SSID_UUID    | 写入 Wi-Fi 名称    |
-| PASS_UUID    | 写入 Wi-Fi 密码    |
+| 名称         | 用途                   |
+| ------------ | ---------------------- |
+| SERVICE_UUID | 蓝牙服务标识           |
+| SSID_UUID    | 写入 Wi-Fi 名称        |
+| PASS_UUID    | 写入 Wi-Fi 密码        |
 | STATUS_UUID  | 接收连接结果（NOTIFY） |
 
 ### 字符串、二进制转换
@@ -242,15 +241,15 @@ const arrayBufferToString = (buffer: ArrayBufferLike) => { ... }
 微信内置了实现函数，我们只需调用
 
 ```ts
-wx.openBluetoothAdapter()
-wx.getBluetoothAdapterState()
+wx.openBluetoothAdapter();
+wx.getBluetoothAdapterState();
 ```
 
 对应我代码中的函数（方便检索）
 
 ```ts
-initBluetooth()
-checkBluetooth()
+initBluetooth();
+checkBluetooth();
 ```
 
 ### 扫描与发现设备
@@ -269,8 +268,8 @@ wx.onBluetoothDeviceFound(...)
 对应函数：
 
 ```ts
-toggleDiscovery()
-handleDeviceFound()
+toggleDiscovery();
+handleDeviceFound();
 ```
 
 ### 连接设备与获取服务
@@ -278,14 +277,14 @@ handleDeviceFound()
 当用户点击设备时
 
 ```ts
-wx.createBLEConnection()
+wx.createBLEConnection();
 ```
 
 连接成功后
 
 ```ts
-wx.getBLEDeviceServices()
-wx.getBLEDeviceCharacteristics()
+wx.getBLEDeviceServices();
+wx.getBLEDeviceCharacteristics();
 ```
 
 对应函数
@@ -305,15 +304,15 @@ connectDevice() → prepareServices() → getCharacteristics()
 获取成功后，保存在：
 
 ```ts
-ssidCharacteristic
-passCharacteristic
-statusCharacteristic
+ssidCharacteristic;
+passCharacteristic;
+statusCharacteristic;
 ```
 
 ### 启用通知（接收设备反馈）
 
 ```ts
-wx.notifyBLECharacteristicValueChange({ state: true })
+wx.notifyBLECharacteristicValueChange({ state: true });
 ```
 
 开启后，设备通过 STATUS_UUID 主动推送 Wi-Fi 连接结果。
@@ -337,7 +336,7 @@ statusChar->notify();
 核心函数
 
 ```ts
-sendWifiCredentials()
+sendWifiCredentials();
 ```
 
 ==执行逻辑：==
@@ -353,8 +352,8 @@ wx.writeBLECharacteristicValue({
   deviceId,
   serviceId,
   characteristicId,
-  value: stringToArrayBuffer(ssid)
-})
+  value: stringToArrayBuffer(ssid),
+});
 ```
 
 这与 ESP32 端的 `onWrite()` 一一对应
@@ -367,17 +366,17 @@ wx.writeBLECharacteristicValue({
 
 ## 整体流程
 
-| 阶段      | 小程序端操作                                 | ESP32 端响应                     |
-| ------- | -------------------------------------- | ----------------------------- |
-| 打开蓝牙    | `openBluetoothAdapter()`               | —                             |
-| 扫描设备    | `startBluetoothDevicesDiscovery()`     | 广播中                           |
-| 连接设备    | `createBLEConnection()`                | 建立 BLE 会话                    |
-| 获取服务    | `getBLEDeviceServices()`               | —                             |
-| 获取特征    | `getBLEDeviceCharacteristics()`        | —                             |
-| 写入 SSID | `writeBLECharacteristicValue()`        | `onWrite(SSID_UUID)`            |
-| 写入密码    | `writeBLECharacteristicValue()`        | `onWrite(PASS_UUID)` → Wi-Fi 连接 |
-| 启用通知    | `notifyBLECharacteristicValueChange()` | statusChar->`notify()`         |
-| 接收结果    | `onBLECharacteristicValueChange()`     | 推送 “CONNECTED” / “FAILED”     |
+| 阶段      | 小程序端操作                           | ESP32 端响应                      |
+| --------- | -------------------------------------- | --------------------------------- |
+| 打开蓝牙  | `openBluetoothAdapter()`               | —                                 |
+| 扫描设备  | `startBluetoothDevicesDiscovery()`     | 广播中                            |
+| 连接设备  | `createBLEConnection()`                | 建立 BLE 会话                     |
+| 获取服务  | `getBLEDeviceServices()`               | —                                 |
+| 获取特征  | `getBLEDeviceCharacteristics()`        | —                                 |
+| 写入 SSID | `writeBLECharacteristicValue()`        | `onWrite(SSID_UUID)`              |
+| 写入密码  | `writeBLECharacteristicValue()`        | `onWrite(PASS_UUID)` → Wi-Fi 连接 |
+| 启用通知  | `notifyBLECharacteristicValueChange()` | statusChar->`notify()`            |
+| 接收结果  | `onBLECharacteristicValueChange()`     | 推送 “CONNECTED” / “FAILED”       |
 
 ## 附件
 

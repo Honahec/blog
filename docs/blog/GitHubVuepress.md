@@ -9,9 +9,9 @@ title: 使用 GitHub Actions 和 GitHub Pages 部署 VuePress 项目
 createTime: 2025/10/10 18:58:19
 permalink: /blog/ksuvmbl3/
 tags:
-  - 转载
-  - 部署
-  - 前端
+  - Repost
+  - Deploy
+  - Frontend
 ---
 
 ## 配置 GitHub Actions

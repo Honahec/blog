@@ -3,7 +3,7 @@ title: 如何在 GitHub 贡献你的代码？
 createTime: 2026/05/22 00:28:08
 permalink: /blog/0tfhksf3/
 tags:
-  - 项目管理
+  - Project Manage
 ---
 
 > [!NOTE]

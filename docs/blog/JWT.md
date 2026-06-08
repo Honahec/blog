@@ -3,7 +3,7 @@ title: JWT（JSON Web Token）教程
 createTime: 2025/10/2 21:28:56
 permalink: /blog/0r4vvjv1/
 tags:
-  - 后端
+  - Backend
 ---
 
 > JSON Web Token (JWT) is a compact URL-safe means of representing claims to be transferred between two parties.

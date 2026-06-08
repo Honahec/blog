@@ -3,7 +3,7 @@ title: 非常详细！深入理解OAuth原理和实践细节
 createTime: 2025/10/13 15:57:53
 permalink: /blog/u4qtuft8/
 tags:
-  - 转载
+  - Repost
 copyright:
   creation: reprint
   author: FreewheelLee​
@@ -219,7 +219,6 @@ GitHub 注册 OAuth App 的地址： https://github.com/settings/developers
     > [!WARNING]
     >
     > - 这次的**重定向是 GitHub Authorization Server 发起的**（URL 的参数值也是 GitHub Authorization Server 生成的）
-    >
     > - 这个 URL 的前半部分
     >
     > ![](https://picx.zhimg.com/v2-efb9fa1eb1d62d04db1f657a75a69b3f_1440w.png)
@@ -227,7 +226,6 @@ GitHub 注册 OAuth App 的地址： https://github.com/settings/developers
     > 就是第一个 URL 中 redirect_uri 的值
     >
     > - 参数 state 的值也与 第一个 URL 的参数 state 值一样
-    >
     > - 参数 code 就是 OAuth 中一个非常重要的概念 —— Authorization code （授权码），之后这个 Authorization code 将会被用来获得最终的 Access token
     > - **划重点：这个 URL 实际上是对 Application 后端 API 的一个 GET 请求**，而不是一个 Html 页面！也就是说浏览器在访问这个 URL 的时候，Application 后端并不会返回一个 Html 页面，相反的是，Application 后端根据 URL 中的参数（code 和 state）给 GitHub Authorization Server 发送请求获取 Access Token，成功后，就会再次告诉浏览器重定向到 Application 的前端网址即
     >
@@ -268,7 +266,6 @@ GitHub 注册 OAuth App 的地址： https://github.com/settings/developers
     Application 后端发请求给这个 URL 就能获取到最终的 Access Token。
 
     解析这个 URL 的参数：
-
     - `code` —— 这就是 Authorization code 的值
 
     - `client_id` —— 跟前面一样，这个 client_id 可以帮助 GitHub Authorization Server 识别第三方应用的（在本文中就是 **Best-Notes**）

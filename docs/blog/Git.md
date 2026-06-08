@@ -3,7 +3,7 @@ title: Git 教程
 createTime: 2024/11/3 11:28:56
 permalink: /blog/z85xxugf/
 tags:
-  - 项目管理
+  - Project Manage
 ---
 
 ## 一些声明

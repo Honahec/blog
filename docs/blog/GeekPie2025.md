@@ -4,7 +4,7 @@ createTime: 2025/10/3 10:23:32
 permalink: /blog/fqlwhfh3/
 tags:
   - CTF
-  - 题解
+  - Solution
 ---
 
 > [!NOTE]

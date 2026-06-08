@@ -3,7 +3,7 @@ title: Python 常用内置库
 createTime: 2025/11/11 15:06:34
 permalink: /blog/36w33v9t/
 tags:
-  - 后端
+  - Backend
 ---
 
 > [!NOTE]

@@ -3,7 +3,7 @@ title: 为 VuePress Plume 主题添加马克笔懒加载效果
 createTime: 2025/10/12 23:27:01
 permalink: /blog/g1d2bxy4/
 tags:
-  - 前端
+  - Frontend
 ---
 
 > 本文记录我第一次提交 Pull Request 并被 merge 的经历
@@ -88,7 +88,7 @@ export function setupMarkHighlight(mode: "lazy" | "eager"): void {
         {
           threshold: [0, 0.1, 0.25, 0.5], // 提前观察，避免快速滚动漏判
           rootMargin: "8% 0px -8% 0px", // 上下留缓冲区
-        }
+        },
       );
     }
     return intersectionObserver;
@@ -97,12 +97,12 @@ export function setupMarkHighlight(mode: "lazy" | "eager"): void {
   // 收集需要观察的 mark，并为其打上 data-vp-mark-bound
   const bindMarks = () => {
     const marks = Array.from(
-      document.querySelectorAll<HTMLElement>(MARK_SELECTOR)
+      document.querySelectorAll<HTMLElement>(MARK_SELECTOR),
     ).filter(
       (mark) =>
         mark instanceof HTMLElement &&
         !mark.classList.contains(MARK_VISIBLE_CLASS) && // 已播放过动画的不需要
-        mark.getAttribute(MARK_BOUND_ATTR) !== "1" // 避免重复绑定
+        mark.getAttribute(MARK_BOUND_ATTR) !== "1", // 避免重复绑定
     );
 
     if (marks.length === 0) return;

@@ -3,7 +3,7 @@ title: Vitepress 博客链接重构
 createTime: 2025/10/10 19:32:56
 permalink: /blog/nqcft02d/
 tags:
-  - 前端
+  - Frontend
 ---
 
 ## 初衷：隐藏原始文章路径
@@ -25,7 +25,7 @@ tags:
 
 ```js
 const blogSlugMap = Object.fromEntries(
-  blogEntries.map((entry) => [entry.baseName, entry.slug])
+  blogEntries.map((entry) => [entry.baseName, entry.slug]),
 );
 ```
 
@@ -36,7 +36,7 @@ const blogRewrites = Object.fromEntries(
   blogEntries.map((entry) => [
     entry.relativePath,
     `blog/${entry.slug}/index.md`,
-  ])
+  ]),
 );
 ```
 

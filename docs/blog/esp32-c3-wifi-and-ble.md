@@ -2,8 +2,8 @@
 title: 为 esp32-c3 板子配置 WiFi 和低功耗蓝牙(BLE)实践
 createTime: 2025/10/26 15:58:41
 tags:
-  - 硬件
-  - Arduino 开发
+  - Hardware
+  - Arduino
 permalink: /blog/lqnikpfi/
 ---
 
@@ -89,10 +89,10 @@ void setup() {
 
 同样 ESP32 提供了 Bluetooth Low Energy (BLE) 支持库，分别为
 
-| 库名 | 功能 |
-| --- | --- |
-| BLEDevice.h | 管理 BLE 设备初始化、广播等全局功能 |
-| BLEUtils.h | 提供字符串、UUID、调试等工具函数 |
+| 库名        | 功能                                                                    |
+| ----------- | ----------------------------------------------------------------------- |
+| BLEDevice.h | 管理 BLE 设备初始化、广播等全局功能                                     |
+| BLEUtils.h  | 提供字符串、UUID、调试等工具函数                                        |
 | BLEServer.h | 用于创建服务端（Server）、服务（Service）、特征（Characteristic）等对象 |
 
 首先仍然是引入库并设置 BLE 参数
@@ -110,7 +110,7 @@ BLEServer* pServer = nullptr; // 蓝牙服务端
 BLECharacteristic* pCharacteristic = nullptr; // 代表一个蓝牙特征（类似“变量”，用于与客户端交换数据）
 
 // BLE 协议中用于区分不同服务和特征的字符串
-#define SERVICE_UUID        "12345678-1234-1234-1234-1234567890ab" 
+#define SERVICE_UUID        "12345678-1234-1234-1234-1234567890ab"
 #define CHARACTERISTIC_UUID "abcd1234-5678-90ab-cdef-1234567890ab"
 ```
 

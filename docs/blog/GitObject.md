@@ -4,7 +4,7 @@ title: Git 对象 (Git Object)
 createTime: 2025/9/29 19:32:56
 permalink: /blog/9msarmy4/
 tags:
-  - 底层原理
+  - Infra
 ---
 
 > [!TIP]

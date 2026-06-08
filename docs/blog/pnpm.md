@@ -3,7 +3,7 @@ title: pnpm 教程
 createTime: 2024/11/16 19:32:56
 permalink: /blog/0evtkteq/
 tags:
-  - 项目管理
+  - Project Manage
 ---
 
 ## 与 npm、yarn 的比较

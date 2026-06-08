@@ -3,7 +3,7 @@ title: 什么是单点登录SSO？有哪些常用的实现方式？
 createTime: 2025/10/13 10:22:34
 permalink: /blog/7xyzj9rf/
 tags:
-  - 转载
+  - Repost
 copyright:
   creation: reprint
   author: 全栈安全
