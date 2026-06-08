@@ -1,0 +1,1 @@
+import{Vr as e}from"./common-CCLAGYV_.js";export{e as createArchitectureServices};
