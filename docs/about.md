@@ -16,10 +16,6 @@ copyright: false
 
 希望能给偶然到此的各位和未来的我留下些东西
 
-## 教育经历
-
-<EducationTimeLine />
-
 ## 各个地方的我
 
 [Email](mailto:honahec@gmail.com)：honahec@gmail.com
@@ -35,5 +31,3 @@ copyright: false
 如果你有任何建议，欢迎在下方评论区留言
 
 收集友链，如果你愿意，请查看[友链](../friends/)
-
-> [旧版页面](./about/v1/)
