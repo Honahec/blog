@@ -1,17 +1,22 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
-const tagline = ref('一言加载中......');
-const author = ref('');
+const tagline = ref("一言加载中......");
+const author = ref("");
 
 onMounted(async () => {
   try {
-    const response = await fetch('https://api.honahec.cc/yiyan/get/');
+    // const response = await fetch('https://api.honahec.cc/yiyan/get/');
+    // const data = await response.json();
+    // tagline.value = data.content;
+    // author.value = data.author;
+
+    const response = await fetch("https://memokeep.cc/api/koto/sentence/get/");
     const data = await response.json();
     tagline.value = data.content;
-    author.value = data.author;
+    author.value = data.author || data.source;
   } catch (error) {
-    console.error('获取一言失败：', error);
+    console.error("获取一言失败：", error);
   }
 });
 </script>
