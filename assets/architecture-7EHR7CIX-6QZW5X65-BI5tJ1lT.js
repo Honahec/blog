@@ -1,0 +1,1 @@
+import{Vr as e}from"./common-DwbVKUSH.js";export{e as createArchitectureServices};
