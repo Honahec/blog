@@ -1,0 +1,1 @@
+import{Fr as e}from"./common-B2UAcTXN.js";export{e as createPacketServices};
