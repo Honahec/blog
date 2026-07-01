@@ -1,7 +1,7 @@
 ---
 home: true
 config:
-  - type: HomepageV2
+  - type: Homepage
     full: true
     hero:
       name: 云朵角落
