@@ -1,0 +1,1 @@
+import{Vr as e}from"./common-DciJWiHl.js";export{e as createArchitectureServices};
